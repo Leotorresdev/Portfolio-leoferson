@@ -27,7 +27,6 @@ export const proyectosEjemplo = [
     githubLink: "https://github.com/Leotorresdev/APP-HOTEL",
     tags: ['react', 'tailwind', 'postgresql']
   },
-  
   {
     title: "Landing Page de Publicidad",
     description: "Página de aterrizaje para promocionar servicios de publicidad digital.",
@@ -36,10 +35,16 @@ export const proyectosEjemplo = [
     githubLink: "https://github.com/Leotorresdev/langind-page",
     tags: ['react', 'framer', 'tailwind']
   },
-  
 ];
 
-export function ProjectCard({ title, description, image, demoLink, githubLink, tags }) {
+export function ProjectCard({
+  title,
+  description,
+  image,
+  demoLink,
+  githubLink,
+  tags = [] // ✅ Valor por defecto para evitar undefined
+}) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -50,13 +55,19 @@ export function ProjectCard({ title, description, image, demoLink, githubLink, t
       className="group relative bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300"
     >
       <div className="relative h-44 overflow-hidden">
-        <Image
-          src={image}
-          alt={title}
-          width={400}
-          height={200}
-          className="object-cover w-full h-full transform transition-transform duration-500 group-hover:scale-105"
-        />
+        {image ? (
+          <Image
+            src={image}
+            alt={title}
+            width={400}
+            height={200}
+            className="object-cover w-full h-full transform transition-transform duration-500 group-hover:scale-105"
+          />
+        ) : (
+          <div className="w-full h-full flex items-center justify-center bg-gray-200 text-gray-500">
+            Sin imagen
+          </div>
+        )}
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         <div className="absolute top-2 right-2 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
           {githubLink && (
@@ -98,7 +109,7 @@ export function ProjectCard({ title, description, image, demoLink, githubLink, t
           {description}
         </p>
         <div className="flex flex-wrap gap-1.5">
-          {tags.slice(0, 3).map((tag) => (
+          {(tags || []).slice(0, 3).map((tag) => (
             <span
               key={tag}
               className={`px-2 py-0.5 text-xs font-medium text-white rounded-full bg-gradient-to-r ${projectTags[tag]?.color}`}

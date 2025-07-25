@@ -1,12 +1,12 @@
 import React from 'react';
-import { ProjectCard }from '@/components/ProjectCard';
+import { ProjectGrid } from '@/components/ProjectCard';
 
 function Projects() {
   return (
-    <main >
-      <ProjectCard />
+    <main>
+      <ProjectGrid />
     </main>
-  )
+  );
 }
 
 export default Projects;
