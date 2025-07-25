@@ -113,7 +113,7 @@ export function ProjectCard({ title, description, image, demoLink, githubLink, t
   );
 }
 
-export default function ProjectGrid() {
+export function ProjectGrid() {
   return (
     <section className="min-h-screen pt-[120px] scroll-mt-[120px] bg-gradient-to-b from-white to-gray-50" id="projects">
       <div className="container mx-auto px-4 py-12">
