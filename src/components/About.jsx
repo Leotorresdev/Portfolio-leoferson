@@ -9,7 +9,7 @@ const educationDetails = {
   university: 'Universidad Valle del Momboy',
   career: 'Ingeniería en Computación',
   duration: '2025 - Presente',
-  status: 'Cursando Pasantías',
+  status: ' Practicas profesionales',
 };
 
 const specialties = [

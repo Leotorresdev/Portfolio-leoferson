@@ -6,11 +6,11 @@ import { ArrowRight, Github, Linkedin, Twitter } from 'lucide-react';
 import Link from 'next/link';
 
 const tech = [
-  { name: 'React', color: 'from-blue-400 to-blue-600', icon: '⚛️' },
   { name: 'Node.js', color: 'from-green-400 to-green-600', icon: '🚀' },
+  { name: 'Express', color: 'from-blue-400 to-blue-600', icon: '✨' },
   { name: 'PostgreSQL', color: 'from-indigo-400 to-indigo-600', icon: '🐘' },
+  { name: 'Prisma (ORM)', color: 'from-pink-400 to-pink-600', icon: '🥇' },
   { name: 'Tailwind', color: 'from-cyan-400 to-cyan-600', icon: '🎨' },
-  { name: 'Framer Motion', color: 'from-pink-400 to-pink-600', icon: '✨' },
   { name: 'Next.js', color: 'from-yellow-400 to-yellow-600', icon: '🌟' },
 ];
 
@@ -144,7 +144,7 @@ export default function Hero() {
           >
             ¡Hola! Soy{' '}
             <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              Desarrollador Full Stack
+              Desarrollador Backend
             </span>
           </motion.h1>
 

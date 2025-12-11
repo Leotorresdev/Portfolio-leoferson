@@ -77,7 +77,7 @@ export default function Footer() {
               </h3>
             </Link>
             <p className="text-gray-500 text-sm">
-              Desarrollador Full Stack apasionado por crear experiencias digitales excepcionales y soluciones innovadoras.
+              Desarrollador Backend apasionado por crear experiencias digitales excepcionales y soluciones innovadoras.
             </p>
           </div>
 
