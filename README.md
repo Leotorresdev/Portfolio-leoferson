@@ -1,36 +1,77 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+﻿# Portafolio  Desarrollador FullStack
 
-## Getting Started
+Bienvenido a mi portafolio personal. Esta aplicación presenta proyectos, habilidades y un formulario de contacto construido con Next.js y Tailwind CSS.
 
-First, run the development server:
+**Live demo:** (agrega aquí la URL si la despliegas)
+
+**Tecnologías principales:**
+
+- Next.js (app router)
+- React
+- Tailwind CSS
+- Node.js
+
+**Características principales:**
+
+- Página de inicio con sección hero y navegación.
+- Sección "Sobre mí" con descripción profesional.
+- Listado de proyectos con tarjetas y enlaces.
+- Sección de habilidades con componentes reutilizables.
+- Formulario de contacto que envía datos a una API interna.
+
+**Instalación y ejecución (desarrollo)**
+
+Requisitos: `Node.js` 16+ y `npm` o `yarn`.
+
+1. Instala dependencias:
+
+```bash
+npm install
+```
+
+2. Ejecuta el servidor de desarrollo:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+3. Abre `http://localhost:3000` en tu navegador.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+**Estructura relevante del proyecto**
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Archivos de la app:** [src/app](src/app)
+- **Componentes reutilizables:** [src/components](src/components)
+- Página principal: [src/app/page.jsx](src/app/page.jsx)
+- API de contacto: [src/app/api/contact/route.js](src/app/api/contact/route.js)
 
-## Learn More
+Para ver componentes específicos: [src/components/About.jsx](src/components/About.jsx), [src/components/ContactForm.jsx](src/components/ContactForm.jsx), y [src/components/ProjectCard.jsx](src/components/ProjectCard.jsx).
 
-To learn more about Next.js, take a look at the following resources:
+**Despliegue**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Puedes desplegar este proyecto en plataformas como Vercel o Netlify. Asegúrate de configurar variables de entorno si añades un servicio de correo o backend externo para el formulario de contacto.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+**Buenas prácticas y notas**
 
-## Deploy on Vercel
+- Mantén actualizado `node` y dependencias.
+- Optimiza imágenes en `public/` y usa `next/image` cuando sea posible.
+- Revisa rutas duplicadas (`projects` vs `proyects`) y consolida nombres para SEO y mantenimiento.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+**Contribuciones**
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Si deseas contribuir, crea un fork, abre una rama con cambios claros y envía un pull request describiendo el objetivo.
+
+**Contacto**
+
+Puedes usar el formulario de contacto incluido o añadir tu email y redes sociales aquí.
+
+---
+
+Archivo actualizado: [README.md](README.md)
+
+Si quieres, puedo:
+
+- Ejecutar la app localmente y verificar el formulario de contacto.
+- Añadir una sección de captura de pantalla o GIF al README.
+- Corregir la duplicación de la carpeta `proyects`.
+
+Indica cuál de estas acciones quieres que haga a continuación.
