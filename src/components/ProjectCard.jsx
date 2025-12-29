@@ -1,9 +1,9 @@
 'use client';
 
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { Github, ExternalLink, Code } from 'lucide-react';
-import Link from 'next/link';
+import { Github } from 'lucide-react';
 
 const projectTags = {
   react: { name: 'React', color: 'from-blue-400 to-blue-600' },
@@ -22,29 +22,29 @@ export const proyectosEjemplo = [
   {
     title: "Sistema de Gestión hotelero",
     description: "Aplicación web muy completa para la gestión de reservas, publicidad y servicios hoteleros.",
-    image: "/app-hotel.png",
-    demoLink: "https://frontend-kohl-beta-85.vercel.app",
+    images: ["/hotel.png", "/hotel1.png", "/hotel2.png", "/hotel-3.png", "/hotel-4.png", "/hotel-5.png"],
     githubLink: "https://github.com/Leotorresdev/APP-HOTEL",
     tags: ['react', 'tailwind', 'postgresql']
   },
   {
-    title: "Landing Page de Publicidad",
-    description: "Página de aterrizaje para promocionar servicios de publicidad digital.",
-    image: "/publicidad.png",
-    demoLink: "https://langind-page-two.vercel.app/",
-    githubLink: "https://github.com/Leotorresdev/langind-page",
-    tags: ['react', 'framer', 'tailwind']
+    title: "SaaS de control de gastos e ingresos con IA",
+    description: "Aplicación web para gestionar y controlar gastos e ingresos personales o empresariales de manera eficiente, con IA que da sugerencias sobre tu posición actual.",
+    images: ["/finance-0.png", "/finance-1.png", "/finance-2.png", "/finance-3.png"],
+    githubLink: "https://github.com/Leotorresdev/Finance",
+    tags: ['react', 'framer', 'tailwind', 'node', 'express', 'postgresql', 'prisma']
   },
 ];
 
 export function ProjectCard({
   title,
   description,
-  image,
-  demoLink,
+  images = [],
   githubLink,
   tags = [] // ✅ Valor por defecto para evitar undefined
 }) {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const activeImage = images && images.length ? images[activeIndex] : null;
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -54,20 +54,24 @@ export function ProjectCard({
       transition={{ duration: 0.3 }}
       className="group relative bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300"
     >
-      <div className="relative h-44 overflow-hidden">
-        {image ? (
-          <Image
-            src={image}
-            alt={title}
-            width={400}
-            height={200}
-            className="object-cover w-full h-full transform transition-transform duration-500 group-hover:scale-105"
-          />
+      <div className="relative h-80 md:h-96 overflow-hidden bg-gray-100">
+        {activeImage ? (
+          <div className="relative w-full h-full">
+            <Image
+              src={activeImage}
+              alt={`${title} imagen ${activeIndex + 1}`}
+              fill
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              className="object-cover w-full h-full transform transition-transform duration-500 group-hover:scale-105"
+              priority={activeIndex === 0}
+            />
+          </div>
         ) : (
           <div className="w-full h-full flex items-center justify-center bg-gray-200 text-gray-500">
             Sin imagen
           </div>
         )}
+
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         <div className="absolute top-2 right-2 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
           {githubLink && (
@@ -82,43 +86,48 @@ export function ProjectCard({
               <Github className="w-4 h-4 text-gray-800" />
             </motion.a>
           )}
-          {demoLink && (
-            <motion.a
-              href={demoLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-              className="bg-white/90 p-1.5 rounded-full hover:bg-white transition-colors"
-            >
-              <ExternalLink className="w-4 h-4 text-gray-800" />
-            </motion.a>
-          )}
         </div>
-        <div className="absolute -bottom-5 left-3">
-          <div className="bg-gradient-to-r from-blue-500 to-purple-600 p-2.5 rounded-xl shadow-lg">
-            <Code className="w-5 h-5 text-white" />
+
+        {/* Thumbnails */}
+        {images && images.length > 1 && (
+          <div className="absolute bottom-3 left-3 right-3">
+            <div className="flex gap-3 overflow-x-auto py-1 px-1">
+              {images.map((img, i) => (
+                <button
+                  key={i}
+                  onClick={() => setActiveIndex(i)}
+                  className={`flex-shrink-0 w-14 h-14 overflow-hidden rounded-md border-2 ${i === activeIndex ? 'border-blue-500 scale-105' : 'border-transparent'} p-0.5 bg-white/90 transition-transform`}
+                  aria-label={`Mostrar imagen ${i + 1}`}
+                >
+                  <Image src={img} alt={`${title} mini ${i + 1}`} width={56} height={56} className="object-cover w-full h-full" />
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
+
+        {/* icono de código eliminado según solicitud */}
       </div>
-      <div className="p-4 pt-7">
-        <h3 className="text-lg font-bold text-gray-800 mb-2 group-hover:text-blue-600 transition-colors line-clamp-1">
+
+      <div className="p-6 pt-8">
+        <h3 className="text-xl font-bold text-gray-800 mb-3 group-hover:text-blue-600 transition-colors line-clamp-1">
           {title}
         </h3>
-        <p className="text-gray-600 text-sm mb-3 line-clamp-2 min-h-[2.5rem]">
+        <p className="text-gray-700 text-base mb-4 line-clamp-3 min-h-[3.5rem]">
           {description}
         </p>
-        <div className="flex flex-wrap gap-1.5">
+        <div className="flex flex-wrap gap-2">
           {(tags || []).slice(0, 3).map((tag) => (
             <span
               key={tag}
-              className={`px-2 py-0.5 text-xs font-medium text-white rounded-full bg-gradient-to-r ${projectTags[tag]?.color}`}
+              className={`px-3 py-1 text-sm font-medium text-white rounded-full bg-gradient-to-r ${projectTags[tag]?.color}`}
             >
               {projectTags[tag]?.name}
             </span>
           ))}
         </div>
       </div>
+
       <div className="absolute inset-0 bg-white/0 group-hover:bg-white/5 transition-colors duration-300 pointer-events-none" />
     </motion.div>
   );
@@ -136,7 +145,7 @@ export function ProjectGrid() {
         >
           Proyectos Destacados
         </motion.h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-12">
           {proyectosEjemplo.map((proyecto, index) => (
             <ProjectCard key={index} {...proyecto} />
           ))}
