@@ -1,14 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Code, Server, Network, Brain, Star, } from 'lucide-react';
-
-const getNivelMaestria = (level) => {
-  if (level >= 90) return {  color: 'text-purple-600' };
-  if (level >= 80) return { color: 'text-blue-600' };
-  if (level >= 70) return { color: 'text-green-600' };
-  return {color: 'text-orange-600' };
-};
+import { Code, Server, Network, Brain } from 'lucide-react';
 
 const skills = [
   {
@@ -16,11 +9,11 @@ const skills = [
     icon: <Code size={28} />,
     level: 90,
     technologies: [
-      { name: 'React', level: 90 },
-      { name: 'Next.js', level: 85 },
-      { name: 'Framer Motion', level: 80 },
-      { name: 'Zustand', level: 75 },
-      { name: 'Tailwind CSS', level: 95 }
+      { name: 'React' },
+      { name: 'Next.js' },
+      { name: 'Framer Motion' },
+      { name: 'Zustand' },
+      { name: 'Tailwind CSS' }
     ],
     description:
       'Construcción de interfaces modernas, responsivas y animadas con enfoque en experiencia de usuario (UX) y accesibilidad.',
@@ -31,10 +24,10 @@ const skills = [
     icon: <Server size={28} />,
     level: 85,
     technologies: [
-      { name: 'Node.js', level: 85 },
-      { name: 'Express', level: 80 },
-      { name: 'Supabase', level: 75 },
-      { name: 'Prisma', level: 85 }
+      { name: 'Node.js' },
+      { name: 'Express' },
+      { name: 'Supabase' },
+      { name: 'Prisma' }
     ],
     description:
       'Diseño de APIs RESTful, autenticación segura, controladores limpios y arquitectura escalable.',
@@ -46,8 +39,8 @@ const skills = [
     icon: <Network size={28} />,
     level: 70,
     technologies: [
-      { name: 'Networking', level: 70 },
-      { name: 'Arduino', level: 75 }
+      { name: 'Networking' },
+      { name: 'Arduino' }
     ],
     description:
       'Configuración de redes LAN, direccionamiento IP, y automatización con sensores y microcontroladores.',
@@ -58,10 +51,10 @@ const skills = [
     icon: <Brain size={28} />,
     level: 90,
     technologies: [
-      { name: 'Trabajo en Equipo', level: 90 },
-      { name: 'Comunicación', level: 85 },
-      { name: 'Resolución de Problemas', level: 90 },
-      { name: 'Adaptabilidad', level: 85 }
+      { name: 'Trabajo en Equipo' },
+      { name: 'Comunicación' },
+      { name: 'Resolución de Problemas' },
+      { name: 'Adaptabilidad' }
     ],
     description:
       'Habilidades blandas esenciales para el desarrollo profesional y trabajo en equipo efectivo.',
@@ -72,8 +65,8 @@ const skills = [
     icon: <Brain size={28} />,
     level: 75,
     technologies: [
-      { name: 'Context Engineering', level: 75 },
-      { name: 'Prompt Design', level: 70 }
+      { name: 'Context Engineering' },
+      { name: 'Prompt Design' }
     ],
     description:
       'Aplicación de técnicas avanzadas para optimizar el uso de IA, diseño de prompts y adaptación de modelos a necesidades específicas.',
@@ -84,8 +77,8 @@ const skills = [
     icon: <Server size={28} />,
     level: 80,
     technologies: [
-      { name: 'Product Management', level: 80 },
-      { name: 'Product Design', level: 75 }
+      { name: 'Product Management' },
+      { name: 'Product Design' }
     ],
     description:
       'Gestión y diseño de productos digitales, desde la conceptualización hasta la entrega, con enfoque en valor y experiencia de usuario.',
@@ -93,32 +86,23 @@ const skills = [
   },
 ];
 
-const SkillBar = ({ name, level }) => {
-  const { texto, color } = getNivelMaestria(level);
-  const starsCount = Math.floor(level / 20); // Convertir nivel a estrellas (máximo 5)
+const TechChips = ({ technologies, accent }) => {
+  const base = accent ? `bg-gradient-to-r ${accent} text-white` : 'bg-white/10 text-gray-800';
 
   return (
-    <div className="mb-4 bg-white/5 rounded-lg p-3 hover:bg-white/10 transition-all duration-300">
-      <div className="flex items-center justify-between mb-2">
-        <span className="text-sm font-medium text-gray-700">{name}</span>
-        <span className={`text-sm font-semibold ${color}`}>{texto}</span>
-      </div>
-      <div className="flex gap-1">
-        {[...Array(5)].map((_, index) => (
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, scale: 0 }}
-            animate={{ 
-              opacity: index < starsCount ? 1 : 0.2,
-              scale: 1
-            }}
-            transition={{ delay: index * 0.1 }}
-            className={`h-1.5 flex-1 rounded-full ${
-              index < starsCount ? 'bg-gradient-to-r from-blue-500 to-purple-500' : 'bg-gray-200'
-            }`}
-          />
-        ))}
-      </div>
+    <div className="flex flex-wrap gap-2">
+      {technologies.map((t, i) => (
+        <motion.span
+          key={t.name}
+          initial={{ opacity: 0, y: 6 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.25, delay: i * 0.03 }}
+          style={{ opacity: 0.95 - i * 0.03 }}
+          className={`${base} text-xs font-medium px-3 py-1 rounded-full shadow-sm backdrop-blur-sm transform transition hover:scale-105`}
+        >
+          {t.name}
+        </motion.span>
+      ))}
     </div>
   );
 };
@@ -154,46 +138,23 @@ export default function SkillComponent() {
               whileHover={{ y: -5 }}
               className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
             >
-              <div className={`p-6 bg-gradient-to-r ${skill.gradient}`}>
-                <div className="flex items-center justify-between">
-                  <div className="bg-white/10 p-3 rounded-xl">
-                    <div className="text-white">{skill.icon}</div>
-                  </div>
-                  <div className="bg-white/20 px-4 py-1.5 rounded-full">
-                    <span className="text-white font-medium">
-                      {getNivelMaestria(skill.level).texto}
-                    </span>
+                <div className={`p-6 bg-gradient-to-r ${skill.gradient}`}>
+                  <div className="flex items-center">
+                    <div className="bg-white/10 p-3 rounded-xl">
+                      <div className="text-white">{skill.icon}</div>
+                    </div>
                   </div>
                 </div>
-              </div>
 
               <div className="p-6">
                 <h3 className="text-xl font-bold text-gray-800 mb-3">{skill.title}</h3>
                 <p className="text-gray-600 text-sm mb-6">{skill.description}</p>
 
-                <div className="space-y-2">
-                  {skill.technologies.map((tech) => (
-                    <SkillBar key={tech.name} name={tech.name} level={tech.level} />
-                  ))}
+                <div className="space-y-3">
+                  {skill.technologies && <TechChips technologies={skill.technologies} accent={skill.gradient} />}
                 </div>
               </div>
-
-              <div className="px-6 pb-6">
-                <motion.div
-                  whileHover={{ scale: 1.02 }}
-                  className="bg-gradient-to-r from-gray-50 to-gray-100 p-4 rounded-xl"
-                >
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm font-medium text-gray-600">Nivel de Maestría</span>
-                    <div className="flex items-center space-x-1">
-                      <Star size={16} className={getNivelMaestria(skill.level).color} />
-                      <span className={`text-sm font-bold ${getNivelMaestria(skill.level).color}`}>
-                        {getNivelMaestria(skill.level).texto}
-                      </span>
-                    </div>
-                  </div>
-                </motion.div>
-              </div>
+              
             </motion.div>
           ))}
         </div>
