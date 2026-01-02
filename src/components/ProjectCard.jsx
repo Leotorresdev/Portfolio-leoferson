@@ -16,6 +16,7 @@ const projectTags = {
   framer: { name: 'Framer Motion', color: 'from-pink-400 to-pink-600' },
   prisma: { name: 'Prisma', color: 'from-amber-400 to-amber-600' },
   docker: { name: 'Docker', color: 'from-sky-400 to-sky-600' },
+  ai: { name: 'IA', color: 'from-indigo-400 to-indigo-600' },
 };
 
 export const proyectosEjemplo = [
@@ -39,6 +40,14 @@ export const proyectosEjemplo = [
     images: ["/Api0.png", "/Api1.png"],
     githubLink: "https://github.com/Leotorresdev/AuchAPI-Pro",
     tags: [ 'node', 'express', 'postgresql', 'prisma', 'Zod', 'JWT']
+  }
+  ,
+  {
+    title: "Certificado en Inteligencia Artificial",
+    description: "Certificado obtenido tras completar un curso intensivo de Inteligencia Artificial.",
+    images: ["/certificado .png"],
+    githubLink: "",
+    tags: ['ai']
   }
 ];
 
