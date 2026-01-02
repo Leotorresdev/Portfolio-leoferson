@@ -2,18 +2,18 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { Github, Linkedin, Mail, Twitter, ExternalLink, Heart } from 'lucide-react';
+import { Github, Linkedin, ExternalLink, Heart } from 'lucide-react';
 
 const socialLinks = [
   {
     name: 'GitHub',
     url: 'https://github.com/Leotorresdev',
-    icon: <Github size={20} />
+    icon: <Github size={16} />
   },
   {
     name: 'LinkedIn',
     url: 'https://linkedin.com/in/Leoferson-torres-',
-    icon: <Linkedin size={20} />
+    icon: <Linkedin size={16} />
   },
 ];
 
@@ -24,8 +24,8 @@ const navigationLinks = [
   { name: 'Contacto', href: '/contact' }
 ];
 
-const FooterLink = ({ href, children, external }) => {
-  const baseClasses = "text-gray-500 hover:text-gray-800 transition-colors duration-300";
+const FooterLink = ({ href, children, external, className = '' }) => {
+  const baseClasses = "text-gray-500 hover:text-gray-800 transition-colors duration-200 text-xs " + className;
   
   if (external) {
     return (
@@ -52,9 +52,9 @@ const SocialButton = ({ href, icon, name }) => (
     href={href}
     target="_blank"
     rel="noopener noreferrer"
-    whileHover={{ y: -3 }}
+    whileHover={{ y: -2 }}
     whileTap={{ scale: 0.95 }}
-    className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 hover:text-gray-900 transition-colors duration-300"
+    className="p-1 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 hover:text-gray-900 transition-colors duration-200"
     aria-label={name}
   >
     {icon}
@@ -66,25 +66,23 @@ export default function Footer() {
 
   return (
     <footer className="bg-white border-t border-gray-100">
-      <div className="container mx-auto px-4 py-12">
-        {/* Grid Superior */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-          {/* Columna 1: Logo y Descripción */}
-          <div className="space-y-4">
+      {/* Reduce vertical padding para que el área blanca sea más pequeña */}
+      <div className="container mx-auto px-4 py-2">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-3">
+          <div className="space-y-1">
             <Link href="/" className="inline-block">
-              <h3 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              <h3 className="text-xs font-semibold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                 Leoferson Torres
               </h3>
             </Link>
-            <p className="text-gray-500 text-sm">
-              Desarrollador Backend apasionado por crear experiencias digitales excepcionales y soluciones innovadoras.
+            <p className="text-gray-500 text-xs">
+              Desarrollador Backend — soluciones eficientes.
             </p>
           </div>
 
-          {/* Columna 2: Enlaces Rápidos */}
           <div>
-            <h4 className="font-semibold text-gray-900 mb-4">Enlaces Rápidos</h4>
-            <ul className="space-y-2">
+            <h4 className="font-medium text-gray-900 mb-1 text-xs">Enlaces</h4>
+            <ul className="space-y-1">
               {navigationLinks.map((link) => (
                 <li key={link.name}>
                   <FooterLink href={link.href}>
@@ -95,21 +93,9 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Columna 3: Tecnologías */}
           <div>
-            <h4 className="font-semibold text-gray-900 mb-4">Tecnologías</h4>
-            <ul className="space-y-2">
-              <li><FooterLink href="#" external>React.js</FooterLink></li>
-              <li><FooterLink href="#" external>Next.js</FooterLink></li>
-              <li><FooterLink href="#" external>Node.js</FooterLink></li>
-              <li><FooterLink href="#" external>Tailwind CSS</FooterLink></li>
-            </ul>
-          </div>
-
-          {/* Columna 4: Contacto */}
-          <div>
-            <h4 className="font-semibold text-gray-900 mb-4">Contacto</h4>
-            <div className="flex space-x-3 mb-4">
+            <h4 className="font-medium text-gray-900 mb-1 text-xs">Contacto</h4>
+            <div className="flex space-x-2 mb-1">
               {socialLinks.map((social) => (
                 <SocialButton
                   key={social.name}
@@ -119,37 +105,28 @@ export default function Footer() {
                 />
               ))}
             </div>
-            <p className="text-sm text-gray-500">
-              ¿Tienes un proyecto en mente?{' '}
-              <FooterLink href="/contact" className="text-blue-600 hover:text-blue-700">
-                Hablemos
-              </FooterLink>
+            <p className="text-xs text-gray-500">
+              <FooterLink href="/contact" className="text-blue-600">Hablemos</FooterLink>
             </p>
           </div>
         </div>
 
-        {/* Línea Divisoria con Gradiente */}
-        <div className="h-px bg-gradient-to-r from-blue-100 via-purple-100 to-pink-100 mb-8" />
+        <div className="h-px bg-gradient-to-r from-blue-100 via-purple-100 to-pink-100 mb-2" />
 
-        {/* Footer Inferior */}
-        <div className="flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
-          <div className="flex items-center space-x-1 mb-4 md:mb-0">
+        <div className="flex flex-col md:flex-row justify-between items-center text-xs text-gray-500">
+          <div className="flex items-center space-x-1 mb-1 md:mb-0">
             <span>Hecho con</span>
-            <Heart size={16} className="text-red-500 inline" />
+            <Heart size={12} className="text-red-500 inline" />
             <span>por Leoferson Torres © {currentYear}</span>
           </div>
           
-          <div className="flex items-center space-x-4">
-            <FooterLink href="/privacy" external>
-              Privacidad
-            </FooterLink>
-            <FooterLink href="/terms" external>
-              Términos
-            </FooterLink>
+          <div className="flex items-center space-x-3">
+            <FooterLink href="/privacy" external>Privacidad</FooterLink>
+            <FooterLink href="/terms" external>Términos</FooterLink>
             <FooterLink href="https://nextjs.org" external>
               <span className="flex items-center">
-                Powered by Next.js
-                <ExternalLink size={14} className="ml-1" />
+                Next.js
+                <ExternalLink size={12} className="ml-1" />
               </span>
             </FooterLink>
           </div>

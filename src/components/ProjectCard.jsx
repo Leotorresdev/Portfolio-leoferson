@@ -33,6 +33,13 @@ export const proyectosEjemplo = [
     githubLink: "https://github.com/Leotorresdev/Finance",
     tags: ['react', 'framer', 'tailwind', 'node', 'express', 'postgresql', 'prisma']
   },
+  {
+    title: "AuthAPI Pro",
+    description: "API de autenticación con Express, Prisma y JWT. Permite registro, inicio de sesión y gestión de usuarios con seguridad avanzada.",
+    images: ["/Api0.png", "/Api1.png"],
+    githubLink: "https://github.com/Leotorresdev/AuchAPI-Pro",
+    tags: [ 'node', 'express', 'postgresql', 'prisma', 'Zod', 'JWT']
+  }
 ];
 
 export function ProjectCard({
