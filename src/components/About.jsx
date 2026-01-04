@@ -230,7 +230,7 @@ export default function About() {
               animate={{ opacity: 1 }}
               transition={{ delay: 1 }}
             >
-              <Link href="/CV-leoferson Torres.pdf" target="_blank" download>
+              <Link href="/CV-leoferson.pdf" target="_blank" download>
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
