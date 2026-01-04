@@ -1,5 +1,6 @@
 'use client';
 
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { GraduationCap, Network, Cpu, Code, Briefcase, Download } from 'lucide-react';
 import Image from 'next/image';
@@ -8,8 +9,10 @@ import Link from 'next/link';
 const educationDetails = {
   university: 'Universidad Valle del Momboy',
   career: 'Ingeniería en Computación',
-  duration: '2025 - Presente',
-  status: ' Practicas profesionales',
+  duration: '2019 - 2026',
+  status: 'Practicas profesionales',
+  startYear: '2019',
+  endYear: '2026',
 };
 
 const specialties = [
@@ -44,6 +47,8 @@ const timeline = [
 ];
 
 export default function About() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [isImgLoaded, setIsImgLoaded] = useState(false);
   return (
     <section id="about" className="min-h-screen px-4 md:scroll-mt-[120px] bg-gradient-to-b from-gray-50 to-white">
       <div className="container mx-auto mt-20 pt-20">
@@ -60,22 +65,63 @@ export default function About() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
       >
-        <motion.div
-          whileHover={{ scale: 1.05 }}
-          className="relative group inline-block mb-5"
-        >
-          <motion.div className="absolute -inset-1 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 opacity-75 group-hover:opacity-100 blur transition duration-500" />
-          <motion.div className="relative rounded-full overflow-hidden w-40 h-40 border-4 border-white shadow-2xl">
+        <div className="relative inline-block mb-5">
+          <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 opacity-75 blur transition duration-500" />
+          <button
+            onClick={() => { setIsOpen(true); setIsImgLoaded(false); }}
+            aria-label="Ver foto en grande"
+            className="relative rounded-full overflow-hidden w-40 h-40 border-4 border-white shadow-2xl focus:outline-none"
+          >
             <Image
               src="/leo.png"
               alt="leo"
               width={160}
               height={160}
-              className="w-full h-full object-cover transition duration-500 group-hover:scale-110"
+              className="w-full h-full object-cover transition duration-300"
               priority
             />
-          </motion.div>
-        </motion.div>
+          </button>
+
+          {isOpen && (
+            <div
+              className="fixed inset-0 z-50 flex items-start justify-center pt-24 bg-black/80"
+              onClick={() => { setIsOpen(false); setIsImgLoaded(false); }}
+            >
+              <motion.div
+                initial={{ opacity: 0, scale: 0.98 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.98 }}
+                transition={{ duration: 0.15 }}
+                className="relative mx-2"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <button
+                  onClick={() => { setIsOpen(false); setIsImgLoaded(false); }}
+                  className="absolute top-2 right-2 z-50 text-white bg-black/40 p-2 rounded-full"
+                  aria-label="Cerrar imagen"
+                >
+                  ✕
+                </button>
+
+                {/* Spinner visible mientras carga la imagen */}
+                {!isImgLoaded && (
+                  <div className="flex items-center justify-center w-full">
+                    <div className="h-10 w-10 border-4 border-white border-t-blue-500 rounded-full animate-spin" />
+                  </div>
+                )}
+
+                <div className={`flex items-center justify-center ${isImgLoaded ? '' : 'opacity-0'}`}>
+                  <img
+                    src="/leo.png"
+                    alt="leo grande"
+                    onLoad={() => setIsImgLoaded(true)}
+                    className="max-w-[90vw] max-h-[75vh] object-contain rounded-md"
+                  />
+                </div>
+              </motion.div>
+            </div>
+          )}
+        </div>
 
         <h2 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
           Sobre mí
@@ -101,9 +147,25 @@ export default function About() {
               </div>
               <div className="pl-11">
                 <h4 className="text-xl font-semibold text-gray-800">{educationDetails.university}</h4>
-                <p className="text-blue-600 font-medium">{educationDetails.career}</p>
-                <p className="text-gray-600">{educationDetails.duration}</p>
-                <p className="text-green-600 font-medium mt-2">{educationDetails.status}</p>
+                  <p className="text-blue-600 font-medium">{educationDetails.career}</p>
+                  <p className="text-gray-600">{educationDetails.duration}</p>
+                  <p className="text-green-600 font-medium mt-2">{educationDetails.status}</p>
+              </div>
+            </motion.div>
+
+            {/* Certificado: ubicado tras la sección de Formación Académica */}
+            <motion.div
+              className="bg-white rounded-2xl shadow-xl p-6 flex flex-col md:flex-row items-center gap-6"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.55 }}
+            >
+              <div className="w-full md:w-1/3 flex items-center justify-center">
+                <Image src="/certificado .png" alt="Certificado IA" width={360} height={240} className="rounded-md object-contain shadow-md" />
+              </div>
+              <div className="w-full md:w-2/3">
+                <h4 className="text-xl font-semibold text-gray-800">Certificado en Inteligencia Artificial</h4>
+                <p className="text-gray-600 mt-2">Recibido en el año <span className="text-blue-600 font-medium">2025</span>. Certificación que reconoce formación en fundamentos y aplicaciones prácticas de IA.</p>
               </div>
             </motion.div>
 
@@ -184,5 +246,5 @@ export default function About() {
         </motion.div>
       </div>
     </section>
-  );
+  );  
 }

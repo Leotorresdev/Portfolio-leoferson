@@ -41,14 +41,7 @@ export const proyectosEjemplo = [
     githubLink: "https://github.com/Leotorresdev/AuchAPI-Pro",
     tags: [ 'node', 'express', 'postgresql', 'prisma', 'Zod', 'JWT']
   }
-  ,
-  {
-    title: "Certificado en Inteligencia Artificial",
-    description: "Certificado obtenido tras completar un curso intensivo de Inteligencia Artificial.",
-    images: ["/certificado .png"],
-    githubLink: "",
-    tags: ['ai']
-  }
+ 
 ];
 
 export function ProjectCard({

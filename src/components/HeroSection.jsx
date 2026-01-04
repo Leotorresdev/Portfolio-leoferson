@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { ArrowRight, Github, Linkedin, Twitter } from 'lucide-react';
+import { ArrowRight, Github, Linkedin, Mail } from 'lucide-react';
 import Link from 'next/link';
 
 const tech = [
@@ -17,6 +17,7 @@ const tech = [
 const socialLinks = [
   { icon: <Github size={24} />, href: 'https://github.com/Leotorresdev', label: 'GitHub' },
   { icon: <Linkedin size={24} />, href: 'https://linkedin.com/in/Leoferson-torres-', label: 'LinkedIn' },
+  { icon: <Mail size={24} />, href: '/contact', label: 'Correo', internal: true },
 ];
 
 export default function Hero() {
@@ -144,7 +145,7 @@ export default function Hero() {
           >
             ¡Hola! Soy{' '}
             <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              Desarrollador Backend
+              Programador Full Stack
             </span>
           </motion.h1>
 
@@ -170,12 +171,13 @@ export default function Hero() {
             <motion.span
               key={item.name}
               className={`px-4 py-2 rounded-full bg-gradient-to-r ${item.color} text-white font-medium 
-                         shadow-lg hover:shadow-xl transition-shadow duration-300 flex items-center gap-2`}
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.95 }}
+                         shadow-lg hover:shadow-xl transition-shadow duration-300 flex items-center gap-2 cursor-default select-none`}
+              whileHover={{ scale: 1.03, y: -2 }}
+              whileTap={{ scale: 0.98 }}
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.2 + index * 0.1 }}
+              transition={{ delay: 0.2 + index * 0.1, type: 'spring', stiffness: 60, damping: 18, duration: 0.6 }}
+              style={{ cursor: 'default' }}
             >
               <span>{item.icon}</span>
               {item.name}
@@ -210,17 +212,29 @@ export default function Hero() {
           transition={{ delay: 1 }}
         >
           {socialLinks.map((social, index) => (
-            <motion.a
-              key={social.label}
-              href={social.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              whileHover={{ scale: 1.2, rotate: 5 }}
-              whileTap={{ scale: 0.9 }}
-              className="text-gray-600 hover:text-blue-600 transition-colors duration-300"
-            >
-              {social.icon}
-            </motion.a>
+            social.internal ? (
+              <Link key={social.label} href={social.href} className="text-gray-600 hover:text-blue-600 transition-colors duration-300">
+                <motion.div
+                  whileHover={{ scale: 1.08, rotate: 3 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="flex items-center"
+                >
+                  {social.icon}
+                </motion.div>
+              </Link>
+            ) : (
+              <motion.a
+                key={social.label}
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ scale: 1.2, rotate: 5 }}
+                whileTap={{ scale: 0.9 }}
+                className="text-gray-600 hover:text-blue-600 transition-colors duration-300"
+              >
+                {social.icon}
+              </motion.a>
+            )
           ))}
         </motion.div>
       </motion.div>
