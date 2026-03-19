@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { motion } from 'framer-motion';
 import { Send, Mail, User, MessageSquareText } from 'lucide-react';
@@ -48,11 +48,9 @@ export default function Contact() {
         transition={{ duration: 0.6 }}
         className="max-w-3xl mx-auto text-center mb-12"
       >
-        <h2 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
-          Contáctame
-        </h2>
-        <Typography variant="subtitle1" color="textSecondary">
-          ¿Tienes un proyecto en mente o quieres trabajar conmigo? ¡Hablemos!
+        <h2 className="text-4xl font-bold bg-gradient-to-r from-blue-700 to-purple-700 bg-clip-text text-transparent mb-4">Contactame</h2>
+        <Typography variant="subtitle1" sx={{ color: '#374151' }}>
+          Tienes un proyecto en mente o quieres trabajar conmigo? Hablemos.
         </Typography>
       </motion.div>
 
@@ -65,22 +63,14 @@ export default function Contact() {
         <Card className="p-6 shadow-xl rounded-2xl">
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div className="flex items-center gap-2">
-              <User className="text-blue-600" size={20} />
-              <TextField
-                fullWidth
-                label="Nombre"
-                variant="outlined"
-                required
-                name="nombre"
-                value={form.nombre}
-                onChange={handleChange}
-              />
+              <User className="text-blue-700" size={20} />
+              <TextField fullWidth label="Nombre" variant="outlined" required name="nombre" value={form.nombre} onChange={handleChange} />
             </div>
             <div className="flex items-center gap-2">
-              <Mail className="text-blue-600" size={20} />
+              <Mail className="text-blue-700" size={20} />
               <TextField
                 fullWidth
-                label="Correo Electrónico"
+                label="Correo Electronico"
                 variant="outlined"
                 type="email"
                 required
@@ -90,7 +80,7 @@ export default function Contact() {
               />
             </div>
             <div className="flex items-center gap-2">
-              <MessageSquareText className="text-blue-600" size={20} />
+              <MessageSquareText className="text-blue-700" size={20} />
               <TextField
                 fullWidth
                 label="Mensaje"
@@ -104,20 +94,20 @@ export default function Contact() {
               />
             </div>
             {success && (
-              <Typography color="primary">¡Mensaje enviado correctamente!</Typography>
+              <Typography color="primary" role="status" aria-live="polite">
+                Mensaje enviado correctamente.
+              </Typography>
             )}
             {error && (
-              <Typography color="error">{error}</Typography>
+              <Typography color="error" role="alert">
+                {error}
+              </Typography>
             )}
-            <motion.div
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              className="flex justify-center"
-            >
+            <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="flex justify-center">
               <Button
                 variant="contained"
                 endIcon={<Send />}
-                className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-2 px-6 rounded-full shadow-md"
+                className="bg-gradient-to-r from-blue-700 to-purple-700 text-white py-2 px-6 rounded-full shadow-md"
                 type="submit"
                 disabled={loading}
               >

@@ -1,4 +1,4 @@
-import { Geist, Geist_Mono } from "next/font/google";
+﻿import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -14,16 +14,17 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://leotorresdev.vercel.app'),
   title: {
-    default: 'Portafolio | Leoferson Torres'
+    default: 'Portafolio | Leoferson Torres',
   },
-  
+
   icons: {
     icon: [
       {
         url: '/logo.png',
         href: '/logo.png',
-      }
+      },
     ],
     shortcut: '/logo.png',
     apple: '/logo.png',
@@ -31,13 +32,15 @@ export const metadata = {
   manifest: '/manifest.json',
   openGraph: {
     title: 'Portafolio | Leoferson Torres',
+    description:
+      'Full Stack Developer con experiencia en productos web, especializado en Next.js, Tailwind CSS y backend con Node.js.',
     images: [
       {
         url: '/logo.png',
         width: 800,
         height: 600,
-        alt: 'Leoferson Torres Logo'
-      }
+        alt: 'Leoferson Torres Logo',
+      },
     ],
     locale: 'es_ES',
     type: 'website',
@@ -45,7 +48,8 @@ export const metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Portafolio | Leoferson Torres',
-    description: 'Desarrollador Full Stack especializado en crear experiencias digitales excepcionales',
+    description:
+      'Full Stack Developer: Next.js, Tailwind CSS, Node.js, Scrum y aprendizaje activo de PHP con Laravel.',
     images: ['/logo.png'],
   },
 };
@@ -59,9 +63,7 @@ export default function RootLayout({ children }) {
       </head>
       <body className="bg-white text-gray-900 font-sans min-h-screen flex flex-col">
         <Navbar />
-        <main className="flex-grow">
-          {children}
-        </main>
+        <main className="flex-grow">{children}</main>
         <Footer />
       </body>
     </html>

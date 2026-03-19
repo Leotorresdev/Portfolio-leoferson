@@ -1,11 +1,7 @@
-{
-  "name": "Leoferson Torres Portfolio",
-  "short_name": "LeoTorresDev",
-  "description": "Desarrollador Full Stack especializado en crear experiencias digitales excepcionales",
-  "start_url": "/",
-  "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#2563eb",
+﻿{
+  "name": "Leoferson Torres - Portafolio",
+  "short_name": "Leoferson",
+  "description": "Full Stack Developer con enfoque en Next.js, Tailwind CSS, Node.js y aprendizaje activo de Laravel.",
   "icons": [
     {
       "src": "/logo.png",
@@ -17,5 +13,8 @@
       "sizes": "512x512",
       "type": "image/png"
     }
-  ]
-} 
+  ],
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff",
+  "display": "standalone"
+}

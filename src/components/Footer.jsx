@@ -1,135 +1,109 @@
-'use client';
+﻿'use client';
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { Github, Linkedin, ExternalLink, Heart } from 'lucide-react';
-
-const socialLinks = [
-  {
-    name: 'GitHub',
-    url: 'https://github.com/Leotorresdev',
-    icon: <Github size={16} />
-  },
-  {
-    name: 'LinkedIn',
-    url: 'https://linkedin.com/in/Leoferson-torres-',
-    icon: <Linkedin size={16} />
-  },
-];
+import { Github, Linkedin, Mail, ExternalLink } from 'lucide-react';
 
 const navigationLinks = [
   { name: 'Inicio', href: '/' },
-  { name: 'Sobre Mí', href: '/about' },
-  { name: 'Proyectos', href: '/proyects' },
-  { name: 'Contacto', href: '/contact' }
+  { name: 'Sobre Mi', href: '/about' },
+  { name: 'Proyectos', href: '/projects' },
+  { name: 'Habilidades', href: '/skills' },
+  { name: 'Contacto', href: '/contact' },
 ];
 
-const FooterLink = ({ href, children, external, className = '' }) => {
-  const baseClasses = "text-gray-500 hover:text-gray-800 transition-colors duration-200 text-xs " + className;
-  
-  if (external) {
-    return (
-      <a 
-        href={href}
-        target="_blank"
-        rel="noopener noreferrer"
-        className={baseClasses}
-      >
-        {children}
-      </a>
-    );
-  }
-  
-  return (
-    <Link href={href} className={baseClasses}>
-      {children}
-    </Link>
-  );
-};
+const stack = ['Next.js', 'React', 'Tailwind CSS', 'Node.js', 'Express', 'PHP/Laravel'];
 
-const SocialButton = ({ href, icon, name }) => (
-  <motion.a
-    href={href}
-    target="_blank"
-    rel="noopener noreferrer"
-    whileHover={{ y: -2 }}
-    whileTap={{ scale: 0.95 }}
-    className="p-1 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 hover:text-gray-900 transition-colors duration-200"
-    aria-label={name}
-  >
-    {icon}
-  </motion.a>
-);
+const socials = [
+  { name: 'GitHub', href: 'https://github.com/Leotorresdev', icon: <Github size={18} /> },
+  { name: 'LinkedIn', href: 'https://linkedin.com/in/Leoferson-torres-', icon: <Linkedin size={18} /> },
+];
+
+const linkBase =
+  'text-sm text-gray-600 hover:text-gray-900 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blue-200 rounded-md';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-white border-t border-gray-100">
-      {/* Reduce vertical padding para que el área blanca sea más pequeña */}
-      <div className="container mx-auto px-4 py-2">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-3">
-          <div className="space-y-1">
-            <Link href="/" className="inline-block">
-              <h3 className="text-xs font-semibold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                Leoferson Torres
-              </h3>
+    <footer className="bg-slate-950 text-slate-100 mt-10">
+      <div className="container mx-auto px-4 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+          <div>
+            <Link href="/" className="inline-block focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blue-300 rounded-md">
+              <h3 className="text-xl font-semibold tracking-tight">Leoferson Torres</h3>
             </Link>
-            <p className="text-gray-500 text-xs">
-              Desarrollador Backend — soluciones eficientes.
+            <p className="mt-3 text-sm leading-relaxed text-slate-300">
+              Full Stack Developer con enfoque en interfaces de alto impacto, colaboracion efectiva y soluciones de negocio escalables.
             </p>
+            <div className="mt-4 inline-flex items-center rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-400/30 px-3 py-1 text-xs">
+              Disponible para nuevas oportunidades
+            </div>
           </div>
 
           <div>
-            <h4 className="font-medium text-gray-900 mb-1 text-xs">Enlaces</h4>
-            <ul className="space-y-1">
-              {navigationLinks.map((link) => (
-                <li key={link.name}>
-                  <FooterLink href={link.href}>
-                    {link.name}
-                  </FooterLink>
+            <h4 className="text-sm font-semibold uppercase tracking-wider text-slate-200">Navegacion</h4>
+            <ul className="mt-3 space-y-2">
+              {navigationLinks.map((item) => (
+                <li key={item.name}>
+                  <Link href={item.href} className={`${linkBase} text-slate-300 hover:text-white`}>
+                    {item.name}
+                  </Link>
                 </li>
               ))}
             </ul>
           </div>
 
           <div>
-            <h4 className="font-medium text-gray-900 mb-1 text-xs">Contacto</h4>
-            <div className="flex space-x-2 mb-1">
-              {socialLinks.map((social) => (
-                <SocialButton
-                  key={social.name}
-                  href={social.url}
-                  icon={social.icon}
-                  name={social.name}
-                />
+            <h4 className="text-sm font-semibold uppercase tracking-wider text-slate-200">Stack Principal</h4>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {stack.map((item) => (
+                <span key={item} className="px-2.5 py-1 rounded-md text-xs bg-slate-800 text-slate-200 border border-slate-700">
+                  {item}
+                </span>
               ))}
             </div>
-            <p className="text-xs text-gray-500">
-              <FooterLink href="/contact" className="text-blue-600">Hablemos</FooterLink>
-            </p>
+          </div>
+
+          <div>
+            <h4 className="text-sm font-semibold uppercase tracking-wider text-slate-200">Contacto</h4>
+            <p className="mt-3 text-sm text-slate-300">Conversemos sobre tu proyecto o una posicion en tu equipo.</p>
+            <Link
+              href="/contact"
+              className="mt-4 inline-flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-500 transition-colors focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blue-300"
+            >
+              <Mail size={16} />
+              Enviar mensaje
+            </Link>
+            <div className="mt-4 flex items-center gap-3">
+              {socials.map((social) => (
+                <motion.a
+                  key={social.name}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="p-2 rounded-md bg-slate-800 text-slate-200 hover:text-white hover:bg-slate-700 transition-colors focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blue-300"
+                  aria-label={social.name}
+                >
+                  {social.icon}
+                </motion.a>
+              ))}
+            </div>
           </div>
         </div>
 
-        <div className="h-px bg-gradient-to-r from-blue-100 via-purple-100 to-pink-100 mb-2" />
-
-        <div className="flex flex-col md:flex-row justify-between items-center text-xs text-gray-500">
-          <div className="flex items-center space-x-1 mb-1 md:mb-0">
-            <span>Hecho con</span>
-            <Heart size={12} className="text-red-500 inline" />
-            <span>por Leoferson Torres © {currentYear}</span>
-          </div>
-          
-          <div className="flex items-center space-x-3">
-            <FooterLink href="/privacy" external>Privacidad</FooterLink>
-            <FooterLink href="/terms" external>Términos</FooterLink>
-            <FooterLink href="https://nextjs.org" external>
-              <span className="flex items-center">
-                Next.js
-                <ExternalLink size={12} className="ml-1" />
-              </span>
-            </FooterLink>
-          </div>
+        <div className="mt-10 pt-6 border-t border-slate-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs text-slate-400">
+          <p>© {currentYear} Leoferson Torres. Todos los derechos reservados.</p>
+          <a
+            href="https://nextjs.org"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1 text-slate-400 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blue-300 rounded-md"
+          >
+            Desarrollado con Next.js <ExternalLink size={12} />
+          </a>
         </div>
       </div>
     </footer>
