@@ -43,7 +43,7 @@ export function Hero() {
             />
             <div className="relative w-32 h-32 sm:w-40 sm:h-40 rounded-full p-[3px] bg-gradient-brand shadow-glow">
               <Image
-                src="/leoferson.png"
+                src="/leo.png"
                 alt="Retrato de Leoferson Torres, Full Stack Developer"
                 width={320}
                 height={320}
