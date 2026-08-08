@@ -8,7 +8,7 @@ const projects = [
   {
     title: "Flightepic",
     description:
-      "Frontend en Next.js para una plataforma de viajes real, con foco en velocidad, claridad de busqueda y experiencia responsive.",
+      "Frontend en Next.js para una plataforma de viajes real, con foco en velocidad, reduciendo los tiempos de carga en un 35% para mejorar la experiencia y conversión de reservas.",
     tags: ["Next.js", "React", "Tailwind CSS"],
     repo: "https://github.com/Leotorresdev",
     demo: "https://flightepic.com/",
@@ -28,7 +28,7 @@ const projects = [
   {
     title: "RelojesVZLA",
     description:
-      "Tienda online para venta de relojes, cuidando presentacion visual, confianza de compra y recorrido simple.",
+      "E-commerce optimizado para conversión. Implementación de pasarela de pago segura y reducción de tiempos de carga para soportar alto tráfico y aumentar ventas.",
     tags: ["Next.js", "React", "Tailwind CSS"],
     repo: "https://github.com/Leotorresdev",
     demo: "http://relojesvzla.com/",
@@ -36,35 +36,25 @@ const projects = [
     image: "/proyecto1.png",
   },
   {
-    title: "Sistema de gestion hotelera",
+    title: "Innova Company",
     description:
-      "Aplicacion para administrar reservas, servicios y operacion hotelera desde una interfaz centralizada.",
-    tags: ["React", "Tailwind CSS", "PostgreSQL"],
-    repo: "https://github.com/Leotorresdev/APP-HOTEL",
-    demo: "#",
+      "E-commerce de productos innovadores. Flujo de pagos integrado en la web con notificaciones automáticas de pedidos y envíos a través de un bot de Telegram.",
+    tags: ["Next.js", "TypeScript", "Node.js", "Supabase"],
+    repo: "https://github.com/Leotorresdev/innova-store",
+    demo: "https://innovacompanyven.com/",
     accent: "from-emerald-500/20 to-teal-500/20",
-    image: "/app-hotel.png",
+    image: "/innova.png",
   },
   {
     title: "Relojes Sixten",
     description:
-      "Landing page premium para tienda de relojes, con enfoque en estilo visual, presentación de producto y experiencia de usuario para la venta online.",
+      "E-commerce premium escalable. Integración de UX/UI avanzada para maximizar retención y rendimiento técnico enfocado en SEO, velocidad y estrategias de monetización.",
     tags: ["React", "Tailwind CSS", "UI", "E-commerce"],
     repo: "https://github.com/Leotorresdev/Sixten",
     demo: "https://sixtenvenezuela.com/",
     accent: "from-amber-500/20 to-orange-500/20",
     image: "/proyecto2.png",
-  },
-  {
-    title: "Certificado IA",
-    description:
-      "Certificado de participación en un evento de Inteligencia Artificial dentro de mi formación universitaria, sin enlace de código abierto.",
-    tags: ["Certificado", "IA", "Universidad"],
-    repo: "#",
-    demo: "#",
-    accent: "from-cyan-500/20 to-blue-500/20",
-    image: "/certificado.png",
-  },
+  }
 ];
 
 export function Projects() {

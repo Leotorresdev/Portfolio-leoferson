@@ -7,21 +7,21 @@ const groups = [
   {
     icon: Globe,
     title: "Frontend profesional",
-    skills: ["React", "Next.js", "Tailwind CSS", "Framer Motion", "JavaScript"],
+    skills: ["TypeScript", "React", "Next.js", "Tailwind CSS", "Framer Motion", "JavaScript"],
   },
   {
     icon: Server,
-    title: "Full stack fundamentals",
+    title: "Fundamentos Full Stack",
     skills: ["Node.js", "Express", "Supabase", "Prisma", "REST APIs"],
   },
   {
     icon: Wrench,
-    title: "Colaboracion agil",
-    skills: ["Scrum", "GitHub", "Code Review", "Sprints"],
+    title: "Colaboración ágil",
+    skills: ["Scrum", "GitHub", "Revisión de código", "Sprints"],
   },
   {
     icon: Code2,
-    title: "Diseno a codigo",
+    title: "Diseño a código",
     skills: ["Figma", "UI Systems", "UX Basics"],
   },
 ];

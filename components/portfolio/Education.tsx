@@ -53,6 +53,7 @@ const courses = [
     color: "from-violet-500/20 to-purple-500/20",
     accent: "bg-violet-500",
     featured: false,
+    link: "/certificado.png",
   },
 ];
 
@@ -212,11 +213,25 @@ export function Education() {
                 </div>
 
                 <div className="flex items-center justify-between text-xs text-muted-foreground">
-                  <span className="inline-flex items-center gap-1">
-                    <Clock className="w-3 h-3" />
-                    {course.period}
-                  </span>
-                  <span className={`font-semibold ${course.statusColor}`}>{course.status}</span>
+                  <div className="flex items-center gap-3">
+                    <span className="inline-flex items-center gap-1">
+                      <Clock className="w-3 h-3" />
+                      {course.period}
+                    </span>
+                    <span className={`font-semibold ${course.statusColor}`}>{course.status}</span>
+                  </div>
+                  {/* @ts-ignore */}
+                  {course.link && (
+                    <a
+                      // @ts-ignore
+                      href={course.link}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-1 text-primary hover:underline transition"
+                    >
+                      Ver Certificado
+                    </a>
+                  )}
                 </div>
               </div>
             </motion.article>

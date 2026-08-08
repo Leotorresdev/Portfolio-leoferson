@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Mail, Github, Linkedin, MapPin, Send } from "lucide-react";
+import { Mail, Github, Linkedin, MapPin, Send, MessageCircle } from "lucide-react";
 
 export function Contact() {
   return (
@@ -18,128 +18,46 @@ export function Contact() {
             <Mail className="w-4 h-4" /> 04 — Contacto
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold tracking-tight">
-            ¿Construimos algo <span className="text-gradient">juntos</span>?
+            Escríbeme por <span className="text-gradient">WhatsApp</span>
           </h2>
           <p className="mt-4 text-lg text-muted-foreground">
-            Tengo experiencia en proyectos reales de travel y e-commerce. Si tienes un proyecto, una
-            vacante o quieres colaborar, escribeme.
+            Si quieres enviarme un mensaje para hablar de un proyecto, vacante o colaboración, haz clic en el botón de abajo. ¡Te responderé lo antes posible!
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-5 gap-6 max-w-5xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="lg:col-span-2 space-y-3"
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="max-w-md mx-auto flex flex-col items-center gap-8"
+        >
+          <a
+            href="https://wa.me/584247807851"
+            target="_blank"
+            rel="noreferrer"
+            className="w-full inline-flex items-center justify-center gap-3 px-8 py-4 rounded-xl bg-gradient-brand text-primary-foreground font-semibold shadow-glow hover:scale-105 active:scale-95 transition-all text-lg"
           >
+            Contactar por WhatsApp <MessageCircle className="w-5 h-5" />
+          </a>
+
+          <div className="flex items-center justify-center gap-4 w-full">
             {[
-              {
-                Icon: Linkedin,
-                label: "LinkedIn",
-                value: "/in/Leoferson-torres-",
-                href: "https://linkedin.com/in/Leoferson-torres-",
-              },
-              {
-                Icon: Github,
-                label: "GitHub",
-                value: "@Leotorresdev",
-                href: "https://github.com/Leotorresdev",
-              },
-              { Icon: MapPin, label: "Ubicacion", value: "Venezuela", href: "#" },
-            ].map(({ Icon, label, value, href }) => (
+              { Icon: Linkedin, label: "LinkedIn", href: "https://linkedin.com/in/Leoferson-torres-" },
+              { Icon: Github, label: "GitHub", href: "https://github.com/Leotorresdev" },
+            ].map(({ Icon, label, href }) => (
               <a
                 key={label}
                 href={href}
-                className="glass rounded-xl p-4 flex items-center gap-4 hover:border-primary/50 hover:translate-x-1 transition"
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center gap-2 px-4 py-2 rounded-lg glass hover:text-primary hover:border-primary/40 transition text-sm text-muted-foreground"
               >
-                <div className="grid place-items-center w-10 h-10 rounded-lg bg-gradient-brand shadow-glow">
-                  <Icon className="w-4 h-4 text-primary-foreground" />
-                </div>
-                <div className="text-left">
-                  <div className="text-xs text-muted-foreground">{label}</div>
-                  <div className="text-sm font-medium">{value}</div>
-                </div>
+                <Icon className="w-4 h-4" /> {label}
               </a>
             ))}
-          </motion.div>
-
-          <motion.form
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            onSubmit={(e) => {
-              e.preventDefault();
-              const form = e.currentTarget as HTMLFormElement;
-              const name = (form.elements.namedItem("name") as HTMLInputElement)?.value || "";
-              const email = (form.elements.namedItem("email") as HTMLInputElement)?.value || "";
-              const subject = (form.elements.namedItem("subject") as HTMLInputElement)?.value || "";
-              const message =
-                (form.elements.namedItem("message") as HTMLTextAreaElement)?.value || "";
-              const text = `Hola Leoferson, soy ${name}.\nEmail: ${email}.\nAsunto: ${subject}.\nMensaje: ${message}`;
-              window.location.href = `https://wa.me/584247807851?text=${encodeURIComponent(text)}`;
-            }}
-            className="lg:col-span-3 glass rounded-2xl p-7 space-y-4"
-          >
-            <div className="grid md:grid-cols-2 gap-4">
-              <div>
-                <label className="text-xs font-mono text-muted-foreground mb-1.5 block">
-                  NOMBRE
-                </label>
-                <input
-                  name="name"
-                  required
-                  type="text"
-                  className="w-full px-4 py-3 rounded-lg bg-surface-elevated border border-border focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition"
-                  placeholder="Tu nombre"
-                />
-              </div>
-              <div>
-                <label className="text-xs font-mono text-muted-foreground mb-1.5 block">
-                  EMAIL
-                </label>
-                <input
-                  name="email"
-                  required
-                  type="email"
-                  className="w-full px-4 py-3 rounded-lg bg-surface-elevated border border-border focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition"
-                  placeholder="tu@email.com"
-                />
-              </div>
-            </div>
-            <div>
-              <label className="text-xs font-mono text-muted-foreground mb-1.5 block">ASUNTO</label>
-              <input
-                name="subject"
-                type="text"
-                className="w-full px-4 py-3 rounded-lg bg-surface-elevated border border-border focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition"
-                placeholder="Sobre qué quieres hablar"
-              />
-            </div>
-            <div>
-              <label className="text-xs font-mono text-muted-foreground mb-1.5 block">
-                MENSAJE
-              </label>
-              <textarea
-                name="message"
-                required
-                rows={5}
-                className="w-full px-4 py-3 rounded-lg bg-surface-elevated border border-border focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition resize-none"
-                placeholder="Cuéntame más..."
-              />
-            </div>
-            <motion.button
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              type="submit"
-              className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-gradient-brand text-primary-foreground font-medium shadow-glow"
-            >
-              Enviar mensaje <Send className="w-4 h-4" />
-            </motion.button>
-          </motion.form>
-        </div>
+          </div>
+        </motion.div>
       </div>
 
       <footer className="mt-10 border-t border-border pt-4 pb-0">

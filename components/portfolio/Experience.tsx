@@ -32,9 +32,9 @@ const experiences = [
     description:
       "Desarrollo de soluciones tecnológicas para la industria de aviación. Sistemas de booking, gestión de pasajeros y herramientas de análisis de datos.",
     highlights: [
-      "Sistema de reservas escalable",
-      "API de integración con líneas aéreas",
-      "Dashboard de analytics avanzado",
+      "Sistema de reservas manejando +10k búsquedas mensuales",
+      "API de integración reduciendo tiempos de respuesta en 30%",
+      "Dashboard de analytics aumentando retención de usuarios",
     ],
     technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Node.js", "MongoDB"],
   },
