@@ -4,6 +4,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Code2, Menu, X, Download } from "lucide-react";
 
+const cvFileName = "Leoferson.pdf";
+
 const links = [
   { href: "#home", label: "Inicio" },
   { href: "#experience", label: "Experiencia" },
@@ -68,8 +70,8 @@ export function Navbar() {
 
           <div className="hidden lg:flex items-center gap-3">
             <a
-              href="/CV-leoferson.pdf"
-              download="Leoferson-Torres-CV.pdf"
+              href={`/${cvFileName}`}
+              download={cvFileName}
               className="inline-flex items-center gap-2 text-sm font-medium px-4 py-2 rounded-lg glass hover:border-primary/50 transition"
             >
               <Download className="w-4 h-4" />
@@ -144,8 +146,8 @@ export function Navbar() {
                 ))}
                 <li className="p-2">
                   <a
-                    href="/CV-leoferson.pdf"
-                    download="Leoferson-Torres-CV.pdf"
+                    href={`/${cvFileName}`}
+                    download={cvFileName}
                     onClick={() => setOpen(false)}
                     className="flex items-center justify-center gap-2 text-sm font-medium px-4 py-3 rounded-lg glass hover:border-primary/50 transition mb-2"
                   >

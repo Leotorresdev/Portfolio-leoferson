@@ -4,6 +4,8 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { ArrowDown, Download, Github, Linkedin, Sparkles } from "lucide-react";
 
+const cvFileName = "Leoferson.pdf";
+
 export function Hero() {
   return (
     <section
@@ -99,8 +101,8 @@ export function Hero() {
               Ver experiencia <ArrowDown className="w-4 h-4" />
             </a>
             <a
-              href="/CV-leoferson.pdf"
-              download="Leoferson-Torres-CV.pdf"
+              href={`/${cvFileName}`}
+              download={cvFileName}
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl glass font-medium hover:border-primary/50 transition"
             >
               <Download className="w-4 h-4" />
