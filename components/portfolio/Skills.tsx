@@ -1,83 +1,97 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Code2, Globe, Server, Wrench, Cpu } from "lucide-react";
+import { Code2, Cpu, Globe, Layers, Server } from "lucide-react";
+import { useLanguage } from "./LanguageProvider";
 
-const groups = [
-  {
-    icon: Globe,
-    title: "Frontend profesional",
-    skills: ["TypeScript", "React", "Next.js", "Tailwind CSS", "Framer Motion", "JavaScript"],
-  },
-  {
-    icon: Server,
-    title: "Fundamentos Full Stack",
-    skills: ["Node.js", "Express", "Supabase", "Prisma", "REST APIs"],
-  },
-  {
-    icon: Wrench,
-    title: "Colaboración ágil",
-    skills: ["Scrum", "GitHub", "Revisión de código", "Sprints"],
-  },
-  {
-    icon: Code2,
-    title: "Diseño a código",
-    skills: ["Figma", "UI Systems", "UX Basics"],
-  },
-];
+const iconMap: Record<string, typeof Globe> = {
+  frontend: Globe,
+  backend: Server,
+  infra: Cpu,
+  practices: Layers,
+};
 
 export function Skills() {
+  const { t } = useLanguage();
+
   return (
-    <section id="skills" className="py-32 relative">
-      <div className="absolute inset-0 grid-bg opacity-20 [mask-image:radial-gradient(ellipse_at_center,black_20%,transparent_70%)]" />
-      <div className="container mx-auto px-6 relative">
+    <section
+      id="skills"
+      className="py-20 md:py-28 relative border-b border-border/60"
+    >
+      <div
+        aria-hidden
+        className="absolute inset-0 grid-bg opacity-20 [mask-image:radial-gradient(ellipse_at_center,black_25%,transparent_75%)]"
+      />
+      <div className="container mx-auto px-4 sm:px-6 max-w-6xl relative">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
-          className="max-w-2xl mx-auto text-center mb-16"
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.5 }}
+          className="max-w-3xl mb-12 md:mb-16"
         >
-          <div className="inline-flex items-center gap-2 text-primary text-sm font-mono mb-4">
-            <Cpu className="w-4 h-4" /> 03 — Stack Tecnologico
+          <div className="inline-flex items-center gap-2 text-primary text-xs font-mono uppercase tracking-wider mb-3">
+            <Code2 className="w-4 h-4" />
+            <span>
+              {t.skills.sectionNumber} — {t.skills.eyebrow}
+            </span>
           </div>
-          <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold tracking-tight">
-            Mi <span className="text-gradient">caja de herramientas</span>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight">
+            {t.skills.title}{" "}
+            <span className="text-gradient">{t.skills.titleHighlight}</span>
           </h2>
-          <p className="mt-4 text-base sm:text-lg text-muted-foreground">
-            Tecnologias y practicas que uso para construir interfaces limpias y mantenibles.
+          <p className="mt-3 text-base sm:text-lg text-muted-foreground leading-relaxed">
+            {t.skills.subtitle}
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-6">
-          {groups.map((g, i) => (
-            <motion.div
-              key={g.title}
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.5, delay: i * 0.08 }}
-              className="glass rounded-2xl p-6 hover:border-primary/40 transition group"
-            >
-              <div className="flex items-center gap-3 mb-5">
-                <div className="grid place-items-center w-11 h-11 rounded-xl bg-surface-elevated group-hover:bg-gradient-brand transition">
-                  <g.icon className="w-5 h-5 text-primary group-hover:text-primary-foreground transition" />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {t.skills.groups.map((group, idx) => {
+            const IconComponent = iconMap[group.id] || Code2;
+            return (
+              <motion.div
+                key={group.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.45, delay: idx * 0.08 }}
+                className="glass rounded-2xl p-6 sm:p-7 border border-border hover:border-primary/40 transition flex flex-col justify-between"
+              >
+                <div>
+                  <div className="flex items-start gap-3.5 mb-3">
+                    <div className="grid place-items-center w-11 h-11 rounded-xl bg-surface-elevated border border-border shrink-0 text-primary">
+                      <IconComponent className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <h3 className="text-lg sm:text-xl font-bold text-foreground">
+                        {group.category}
+                      </h3>
+                      <p className="text-xs sm:text-sm text-muted-foreground mt-0.5 leading-relaxed">
+                        {group.subtitle}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                    {group.skills.map((skill) => (
+                      <div
+                        key={skill.name}
+                        className="flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-surface-elevated/85 border border-border/80 hover:border-primary/40 transition"
+                      >
+                        <span className="text-xs sm:text-sm font-medium text-foreground">
+                          {skill.name}
+                        </span>
+                        <span className="text-[10px] font-mono text-primary bg-primary/10 px-2 py-0.5 rounded-md border border-primary/20">
+                          {skill.level}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-                <h3 className="text-lg font-semibold">{g.title}</h3>
-              </div>
-              <div className="flex flex-wrap gap-2">
-                {g.skills.map((s) => (
-                  <motion.span
-                    key={s}
-                    whileHover={{ scale: 1.08, y: -2 }}
-                    className="text-sm px-3 py-1.5 rounded-lg bg-surface-elevated border border-border text-muted-foreground hover:text-primary hover:border-primary/50 cursor-default transition"
-                  >
-                    {s}
-                  </motion.span>
-                ))}
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>

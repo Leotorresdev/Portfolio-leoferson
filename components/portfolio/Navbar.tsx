@@ -3,25 +3,25 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Code2, Menu, X, Download } from "lucide-react";
-
-const cvFileName = "Leoferson.pdf";
-
-const links = [
-  { href: "#home", label: "Inicio" },
-  { href: "#experience", label: "Experiencia" },
-  { href: "#education", label: "Educación" },
-  { href: "#projects", label: "Proyectos" },
-  { href: "#skills", label: "Habilidades" },
-  { href: "#contact", label: "Contacto" },
-];
+import { useLanguage } from "./LanguageProvider";
+import { contactDetails } from "@/lib/portfolio-data";
 
 export function Navbar() {
+  const { locale, toggleLocale, t } = useLanguage();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
+  // Clean 4-item core navigation (Logo already links to #home, CTA links to #contact)
+  const links = [
+    { href: "#experience", label: t.nav.experience },
+    { href: "#projects", label: t.nav.projects },
+    { href: "#skills", label: t.nav.skills },
+    { href: "#education", label: t.nav.education },
+  ];
+
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", onScroll);
+    const onScroll = () => setScrolled(window.scrollY > 16);
+    window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
@@ -34,32 +34,43 @@ export function Navbar() {
 
   return (
     <motion.header
-      initial={{ y: -40, opacity: 0 }}
+      initial={{ y: -24, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
+      transition={{ duration: 0.45, ease: "easeOut" }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled || open ? "py-3" : "py-5"
+        scrolled || open ? "py-2.5" : "py-4"
       }`}
     >
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
         <nav
-          className={`flex items-center justify-between rounded-2xl px-5 py-3 transition-all ${
-            scrolled || open ? "glass shadow-card" : ""
+          aria-label="Navegación principal"
+          className={`flex items-center justify-between gap-4 rounded-2xl px-4 sm:px-6 py-2.5 transition-all ${
+            scrolled || open
+              ? "glass shadow-card border border-border"
+              : "bg-surface/40 backdrop-blur-md border border-border/50"
           }`}
         >
-          <a href="#home" onClick={() => setOpen(false)} className="flex items-center gap-2 font-bold tracking-tight">
-            <span className="grid place-items-center w-9 h-9 rounded-xl bg-gradient-brand shadow-glow">
-              <Code2 className="w-5 h-5 text-primary-foreground" />
+          {/* Minimal Brand Identity */}
+          <a
+            href="#home"
+            onClick={() => setOpen(false)}
+            className="flex items-center gap-2.5 font-bold tracking-tight whitespace-nowrap shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-lg"
+          >
+            <span className="grid place-items-center w-8 h-8 rounded-lg bg-gradient-brand shadow-glow shrink-0">
+              <Code2 className="w-4 h-4 text-primary-foreground" />
             </span>
-            <span className="text-gradient text-lg">Leoferson.dev</span>
+            <span className="text-foreground text-base font-bold tracking-tight">
+              Leoferson<span className="text-primary">.dev</span>
+            </span>
           </a>
 
-          <ul className="hidden lg:flex items-center gap-1">
+          {/* Clean Center Navigation Links */}
+          <ul className="hidden md:flex items-center gap-1 lg:gap-2">
             {links.map((l) => (
               <li key={l.href}>
                 <a
                   href={l.href}
-                  className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground rounded-lg transition-colors relative group"
+                  className="px-3 py-1.5 text-sm font-medium text-muted-foreground hover:text-foreground rounded-lg transition-colors whitespace-nowrap relative group"
                 >
                   {l.label}
                   <span className="absolute inset-x-3 -bottom-0.5 h-px bg-gradient-brand scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
@@ -68,100 +79,126 @@ export function Navbar() {
             ))}
           </ul>
 
-          <div className="hidden lg:flex items-center gap-3">
-            <a
-              href={`/${cvFileName}`}
-              download={cvFileName}
-              className="inline-flex items-center gap-2 text-sm font-medium px-4 py-2 rounded-lg glass hover:border-primary/50 transition"
+          {/* Compact Right Actions */}
+          <div className="hidden md:flex items-center gap-2 shrink-0">
+            <button
+              type="button"
+              onClick={toggleLocale}
+              aria-label={t.nav.langLabel}
+              title={t.nav.langLabel}
+              className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-surface-elevated/80 border border-border hover:border-primary/50 text-xs font-mono font-semibold text-muted-foreground hover:text-foreground transition cursor-pointer whitespace-nowrap"
             >
-              <Download className="w-4 h-4" />
-              Descargar CV
+              <span className={locale === "es" ? "text-primary" : ""}>ES</span>
+              <span className="opacity-40">/</span>
+              <span className={locale === "en" ? "text-primary" : ""}>EN</span>
+            </button>
+
+            <a
+              href={contactDetails.cvPath}
+              download={contactDetails.cvDownloadName}
+              className="inline-flex items-center gap-1.5 text-xs font-mono font-medium px-3 py-2 rounded-lg bg-surface-elevated/80 border border-border hover:border-primary/50 hover:text-primary transition whitespace-nowrap"
+            >
+              <Download className="w-3.5 h-3.5" />
+              {t.nav.downloadCv}
             </a>
+
             <a
               href="#contact"
-              className="inline-flex items-center text-sm font-medium px-4 py-2 rounded-lg bg-gradient-brand text-primary-foreground hover:opacity-90 transition shadow-glow"
+              className="inline-flex items-center text-xs sm:text-sm font-semibold px-4 py-2 rounded-lg bg-gradient-brand text-primary-foreground hover:opacity-95 transition shadow-glow whitespace-nowrap"
             >
-              Hablemos
+              {t.nav.hireMe}
             </a>
           </div>
 
-          <button
-            type="button"
-            onClick={() => setOpen((v) => !v)}
-            aria-label={open ? "Cerrar menú" : "Abrir menú"}
-            aria-expanded={open}
-            className="lg:hidden grid place-items-center w-10 h-10 rounded-lg glass hover:text-primary transition"
-          >
-            <AnimatePresence mode="wait" initial={false}>
-              {open ? (
-                <motion.span
-                  key="close"
-                  initial={{ rotate: -90, opacity: 0 }}
-                  animate={{ rotate: 0, opacity: 1 }}
-                  exit={{ rotate: 90, opacity: 0 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <X className="w-5 h-5" />
-                </motion.span>
-              ) : (
-                <motion.span
-                  key="menu"
-                  initial={{ rotate: 90, opacity: 0 }}
-                  animate={{ rotate: 0, opacity: 1 }}
-                  exit={{ rotate: -90, opacity: 0 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <Menu className="w-5 h-5" />
-                </motion.span>
-              )}
-            </AnimatePresence>
-          </button>
+          {/* Mobile Controls */}
+          <div className="flex md:hidden items-center gap-2">
+            <button
+              type="button"
+              onClick={toggleLocale}
+              aria-label={t.nav.langLabel}
+              className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-surface-elevated border border-border text-xs font-mono font-semibold text-foreground"
+            >
+              <span className={locale === "es" ? "text-primary" : "text-muted-foreground"}>
+                ES
+              </span>
+              <span className="opacity-40">/</span>
+              <span className={locale === "en" ? "text-primary" : "text-muted-foreground"}>
+                EN
+              </span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setOpen((v) => !v)}
+              aria-label={open ? "Cerrar menú" : "Abrir menú"}
+              aria-expanded={open}
+              className="grid place-items-center w-9 h-9 rounded-lg glass hover:text-primary transition"
+            >
+              <AnimatePresence mode="wait" initial={false}>
+                {open ? (
+                  <motion.span
+                    key="close"
+                    initial={{ rotate: -90, opacity: 0 }}
+                    animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: 90, opacity: 0 }}
+                    transition={{ duration: 0.15 }}
+                  >
+                    <X className="w-5 h-5" />
+                  </motion.span>
+                ) : (
+                  <motion.span
+                    key="menu"
+                    initial={{ rotate: 90, opacity: 0 }}
+                    animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: -90, opacity: 0 }}
+                    transition={{ duration: 0.15 }}
+                  >
+                    <Menu className="w-5 h-5" />
+                  </motion.span>
+                )}
+              </AnimatePresence>
+            </button>
+          </div>
         </nav>
 
+        {/* Mobile Drawer */}
         <AnimatePresence>
           {open && (
             <motion.div
-              initial={{ opacity: 0, y: -10 }}
+              initial={{ opacity: 0, y: -8 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.25 }}
-              className="lg:hidden mt-3 rounded-2xl glass shadow-card overflow-hidden"
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.2 }}
+              className="md:hidden mt-2 rounded-2xl glass shadow-card overflow-hidden border border-border"
             >
-              <ul className="flex flex-col p-2">
-                {links.map((l, i) => (
-                  <motion.li
-                    key={l.href}
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.05 }}
-                  >
+              <ul className="flex flex-col p-3 gap-1">
+                {links.map((l) => (
+                  <li key={l.href}>
                     <a
                       href={l.href}
                       onClick={() => setOpen(false)}
-                      className="block px-4 py-3 text-sm text-muted-foreground hover:text-foreground hover:bg-surface-elevated rounded-lg transition-colors"
+                      className="block px-4 py-2.5 text-sm text-muted-foreground hover:text-foreground hover:bg-surface-elevated rounded-xl transition-colors"
                     >
                       {l.label}
                     </a>
-                  </motion.li>
+                  </li>
                 ))}
-                <li className="p-2">
+                <li className="pt-2 border-t border-border/60 mt-1 grid grid-cols-2 gap-2">
                   <a
-                    href={`/${cvFileName}`}
-                    download={cvFileName}
+                    href={contactDetails.cvPath}
+                    download={contactDetails.cvDownloadName}
                     onClick={() => setOpen(false)}
-                    className="flex items-center justify-center gap-2 text-sm font-medium px-4 py-3 rounded-lg glass hover:border-primary/50 transition mb-2"
+                    className="flex items-center justify-center gap-1.5 text-xs font-mono font-medium px-3 py-2.5 rounded-xl bg-surface-elevated border border-border hover:border-primary/50 transition"
                   >
-                    <Download className="w-4 h-4" />
-                    Descargar CV
+                    <Download className="w-3.5 h-3.5" />
+                    {t.nav.downloadCv}
                   </a>
-                </li>
-                <li className="p-2">
                   <a
                     href="#contact"
                     onClick={() => setOpen(false)}
-                    className="block text-center text-sm font-medium px-4 py-3 rounded-lg bg-gradient-brand text-primary-foreground hover:opacity-90 transition shadow-glow"
+                    className="flex items-center justify-center text-xs font-semibold px-3 py-2.5 rounded-xl bg-gradient-brand text-primary-foreground hover:opacity-95 transition shadow-glow"
                   >
-                    Hablemos
+                    {t.nav.hireMe}
                   </a>
                 </li>
               </ul>

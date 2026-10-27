@@ -1,76 +1,195 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { Mail, Github, Linkedin, MapPin, Send, MessageCircle } from "lucide-react";
+import {
+  Check,
+  Copy,
+  Download,
+  ExternalLink,
+  Github,
+  Linkedin,
+  Mail,
+  MessageCircle,
+} from "lucide-react";
+import { useLanguage } from "./LanguageProvider";
+import { contactDetails } from "@/lib/portfolio-data";
 
 export function Contact() {
-  return (
-    <section id="contact" className="py-32 relative">
-      <div className="container mx-auto px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
-          className="max-w-3xl mx-auto text-center mb-14"
-        >
-          <div className="inline-flex items-center gap-2 text-primary text-sm font-mono mb-4">
-            <Mail className="w-4 h-4" /> 04 — Contacto
-          </div>
-          <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold tracking-tight">
-            Escríbeme por <span className="text-gradient">WhatsApp</span>
-          </h2>
-          <p className="mt-4 text-lg text-muted-foreground">
-            Si quieres enviarme un mensaje para hablar de un proyecto, vacante o colaboración, haz clic en el botón de abajo. ¡Te responderé lo antes posible!
-          </p>
-        </motion.div>
+  const { t } = useLanguage();
+  const [copied, setCopied] = useState(false);
 
+  const handleCopyEmail = async () => {
+    try {
+      if (!navigator?.clipboard) {
+        window.location.href = `mailto:${contactDetails.email}`;
+        return;
+      }
+      await navigator.clipboard.writeText(contactDetails.email);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2600);
+    } catch {
+      window.location.href = `mailto:${contactDetails.email}`;
+    }
+  };
+
+  return (
+    <section id="contact" className="py-20 md:py-28 relative">
+      <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
+        {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="max-w-md mx-auto flex flex-col items-center gap-8"
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.5 }}
+          className="max-w-3xl mx-auto text-center mb-12 md:mb-16"
         >
-          <a
-            href="https://wa.me/584247807851"
-            target="_blank"
-            rel="noreferrer"
-            className="w-full inline-flex items-center justify-center gap-3 px-8 py-4 rounded-xl bg-gradient-brand text-primary-foreground font-semibold shadow-glow hover:scale-105 active:scale-95 transition-all text-lg"
-          >
-            Contactar por WhatsApp <MessageCircle className="w-5 h-5" />
-          </a>
-
-          <div className="flex items-center justify-center gap-4 w-full">
-            {[
-              { Icon: Linkedin, label: "LinkedIn", href: "https://linkedin.com/in/Leoferson-torres-" },
-              { Icon: Github, label: "GitHub", href: "https://github.com/Leotorresdev" },
-            ].map(({ Icon, label, href }) => (
-              <a
-                key={label}
-                href={href}
-                target="_blank"
-                rel="noreferrer"
-                className="flex items-center gap-2 px-4 py-2 rounded-lg glass hover:text-primary hover:border-primary/40 transition text-sm text-muted-foreground"
-              >
-                <Icon className="w-4 h-4" /> {label}
-              </a>
-            ))}
-          </div>
-        </motion.div>
-      </div>
-
-      <footer className="mt-10 border-t border-border pt-4 pb-0">
-        <div className="container mx-auto px-2 max-w-6xl flex flex-col md:flex-row items-center justify-between gap-2 text-xs text-muted-foreground">
-          <p className="leading-tight text-xs">
-            © {new Date().getFullYear()} Leoferson Torres. Desarrollo web profesional con foco en
-            experiencia de usuario, rendimiento y escalabilidad.
-          </p>
-          <div className="flex flex-row items-center gap-2 text-primary">
-            <span className="font-medium text-xs">
-              React · Next.js · Tailwind CSS · Framer Motion
+          <div className="inline-flex items-center justify-center gap-2 text-primary text-xs font-mono uppercase tracking-wider mb-3">
+            <Mail className="w-4 h-4" />
+            <span>
+              {t.contact.sectionNumber} — {t.contact.eyebrow}
             </span>
           </div>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight">
+            {t.contact.title}{" "}
+            <span className="text-gradient">{t.contact.titleHighlight}</span>
+          </h2>
+          <p className="mt-4 text-base sm:text-lg text-muted-foreground leading-relaxed">
+            {t.contact.subtitle}
+          </p>
+        </motion.div>
+
+        {/* Dual Action Cards: Recruiter Email + Fast WhatsApp */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 max-w-5xl mx-auto">
+          {/* Primary Recruiter Email Card */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.45 }}
+            className="lg:col-span-7 rounded-2xl glass border border-primary/40 p-6 sm:p-8 flex flex-col justify-between shadow-glow"
+          >
+            <div>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/15 border border-primary/30 text-primary text-xs font-mono font-semibold mb-4">
+                <Mail className="w-3.5 h-3.5" />
+                {t.contact.emailCardTitle}
+              </div>
+
+              <div className="text-xl sm:text-2xl font-mono font-bold text-foreground break-all">
+                {contactDetails.email}
+              </div>
+
+              <p className="text-sm text-muted-foreground mt-2 leading-relaxed">
+                {t.contact.emailCardDesc}
+              </p>
+            </div>
+
+            <div className="mt-6 flex flex-wrap items-center gap-3">
+              <button
+                type="button"
+                onClick={handleCopyEmail}
+                className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-gradient-brand text-primary-foreground font-semibold text-sm hover:opacity-95 transition cursor-pointer"
+              >
+                {copied ? (
+                  <>
+                    <Check className="w-4 h-4" />
+                    <span>{t.contact.copiedButton}</span>
+                  </>
+                ) : (
+                  <>
+                    <Copy className="w-4 h-4" />
+                    <span>{t.contact.copyButton}</span>
+                  </>
+                )}
+              </button>
+
+              <a
+                href={`mailto:${contactDetails.email}?subject=Job%20Opportunity%20%E2%80%94%20Full%20Stack%20Developer`}
+                className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-surface-elevated border border-border hover:border-primary/50 hover:text-primary text-sm font-medium transition"
+              >
+                <span>{t.contact.sendEmailButton}</span>
+                <ExternalLink className="w-4 h-4" />
+              </a>
+            </div>
+          </motion.div>
+
+          {/* Secondary WhatsApp & Direct CV Card */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.45, delay: 0.08 }}
+            className="lg:col-span-5 rounded-2xl glass border border-border p-6 sm:p-8 flex flex-col justify-between"
+          >
+            <div>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-mono font-semibold mb-4">
+                <MessageCircle className="w-3.5 h-3.5" />
+                {t.contact.whatsappCardTitle}
+              </div>
+
+              <div className="text-xl font-mono font-bold text-foreground">
+                {contactDetails.phoneDisplay}
+              </div>
+
+              <p className="text-sm text-muted-foreground mt-2 leading-relaxed">
+                {t.contact.whatsappCardDesc}
+              </p>
+            </div>
+
+            <div className="mt-6 flex flex-col gap-2.5">
+              <a
+                href={contactDetails.whatsappUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-emerald-500 text-slate-950 font-semibold text-sm hover:bg-emerald-400 transition"
+              >
+                <MessageCircle className="w-4 h-4" />
+                {t.contact.whatsappButton}
+              </a>
+
+              <a
+                href={contactDetails.cvPath}
+                download={contactDetails.cvDownloadName}
+                className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-surface-elevated border border-border hover:border-primary/50 hover:text-primary text-sm font-mono font-medium transition"
+              >
+                <Download className="w-4 h-4" />
+                {t.contact.downloadCvButton}
+              </a>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Professional Profiles Strip */}
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+          <a
+            href={contactDetails.linkedinUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl glass hover:text-primary hover:border-primary/40 transition text-sm font-mono"
+          >
+            <Linkedin className="w-4 h-4 text-primary" />
+            linkedin.com/in/Leoferson-torres-
+          </a>
+          <a
+            href={contactDetails.githubUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl glass hover:text-primary hover:border-primary/40 transition text-sm font-mono"
+          >
+            <Github className="w-4 h-4 text-primary" />
+            github.com/Leotorresdev
+          </a>
+        </div>
+      </div>
+
+      {/* Footer */}
+      <footer className="mt-16 border-t border-border/60 pt-8">
+        <div className="container mx-auto px-4 sm:px-6 max-w-6xl flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted-foreground font-mono">
+          <p>
+            © {new Date().getFullYear()} {contactDetails.fullName} —{" "}
+            {t.contact.footerRights}
+          </p>
+          <p className="text-primary">{t.contact.footerBuiltWith}</p>
         </div>
       </footer>
     </section>

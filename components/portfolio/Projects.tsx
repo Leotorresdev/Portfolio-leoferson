@@ -1,149 +1,239 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
-import { ExternalLink, Github, FolderGit2 } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+import {
+  CheckCircle2,
+  ExternalLink,
+  FolderGit2,
+  Github,
+  Sparkles,
+} from "lucide-react";
+import { useLanguage } from "./LanguageProvider";
 
-const projects = [
-  {
-    title: "Flightepic",
-    description:
-      "Frontend en Next.js para una plataforma de viajes real, con foco en velocidad, reduciendo los tiempos de carga en un 35% para mejorar la experiencia y conversión de reservas.",
-    tags: ["Next.js", "React", "Tailwind CSS"],
-    repo: "https://github.com/Leotorresdev",
-    demo: "https://flightepic.com/",
-    accent: "from-cyan-500/20 to-blue-500/20",
-    image: "/flightepic.png",
-  },
-  {
-    title: "Tripcapy",
-    description:
-      "Experiencia web multilingue para exploracion turistica, pensada para descubrimiento rapido y contenido organizado.",
-    tags: ["Next.js", "React", "Tailwind CSS"],
-    repo: "https://github.com/Leotorresdev",
-    demo: "https://tripcapy.com/es",
-    accent: "from-violet-500/20 to-fuchsia-500/20",
-    image: "/tricapy.png",
-  },
-  {
-    title: "RelojesVZLA",
-    description:
-      "E-commerce optimizado para conversión. Implementación de pasarela de pago segura y reducción de tiempos de carga para soportar alto tráfico y aumentar ventas.",
-    tags: ["Next.js", "React", "Tailwind CSS"],
-    repo: "https://github.com/Leotorresdev",
-    demo: "http://relojesvzla.com/",
-    accent: "from-amber-500/20 to-orange-500/20",
-    image: "/proyecto1.png",
-  },
-  {
-    title: "Innova Company",
-    description:
-      "E-commerce de productos innovadores. Flujo de pagos integrado en la web con notificaciones automáticas de pedidos y envíos a través de un bot de Telegram.",
-    tags: ["Next.js", "TypeScript", "Node.js", "Supabase"],
-    repo: "https://github.com/Leotorresdev/innova-store",
-    demo: "https://innovacompanyven.com/",
-    accent: "from-emerald-500/20 to-teal-500/20",
-    image: "/innova.png",
-  },
-  {
-    title: "Relojes Sixten",
-    description:
-      "E-commerce premium escalable. Integración de UX/UI avanzada para maximizar retención y rendimiento técnico enfocado en SEO, velocidad y estrategias de monetización.",
-    tags: ["React", "Tailwind CSS", "UI", "E-commerce"],
-    repo: "https://github.com/Leotorresdev/Sixten",
-    demo: "https://sixtenvenezuela.com/",
-    accent: "from-amber-500/20 to-orange-500/20",
-    image: "/proyecto2.png",
-  }
-];
+type FilterCategory = "all" | "saas-travel" | "ecommerce";
 
 export function Projects() {
-  return (
-    <section id="projects" className="py-32 relative">
-      <div className="container mx-auto px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
-          className="max-w-2xl mx-auto text-center mb-16"
-        >
-          <div className="inline-flex items-center justify-center gap-2 text-primary text-sm font-mono mb-4">
-            <FolderGit2 className="w-4 h-4" /> 02 — Proyectos
-          </div>
-          <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold tracking-tight">
-            Cosas que <span className="text-gradient">he construido</span>
-          </h2>
-          <p className="mt-4 text-base sm:text-lg text-muted-foreground">
-            Proyectos reales para productos de travel, e-commerce y SaaS.
-          </p>
-        </motion.div>
+  const { t } = useLanguage();
+  const [activeFilter, setActiveFilter] = useState<FilterCategory>("all");
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {projects.map((p, i) => (
-            <motion.article
-              key={p.title}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.5, delay: i * 0.08 }}
-              whileHover={{ y: -6 }}
-              className="group relative rounded-2xl overflow-hidden glass flex flex-col hover:border-primary/40 transition"
-            >
-              <div className="relative aspect-[16/10] overflow-hidden">
-                <div
-                  className={`absolute inset-0 bg-gradient-to-br ${p.accent} opacity-60 z-10 mix-blend-overlay`}
-                />
-                <Image
-                  src={p.image}
-                  alt={p.title}
-                  width={800}
-                  height={512}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent z-20" />
-                <div className="absolute top-4 right-4 z-30 flex gap-2">
-                  <a
-                    href={p.repo}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="p-2 rounded-lg glass hover:text-primary transition"
-                  >
-                    <Github className="w-4 h-4" />
-                  </a>
-                  {p.demo !== "#" && (
-                    <a
-                      href={p.demo}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="p-2 rounded-lg glass hover:text-primary transition"
-                    >
-                      <ExternalLink className="w-4 h-4" />
-                    </a>
-                  )}
-                </div>
-              </div>
-              <div className="relative p-6 flex flex-col flex-1">
-                <h3 className="text-xl font-semibold mb-2 group-hover:text-gradient transition">
-                  {p.title}
-                </h3>
-                <p className="text-sm text-muted-foreground leading-relaxed flex-1">
-                  {p.description}
-                </p>
-                <div className="mt-5 flex flex-wrap gap-2">
-                  {p.tags.map((t) => (
-                    <span
-                      key={t}
-                      className="text-xs font-mono px-2.5 py-1 rounded-md bg-surface-elevated text-muted-foreground"
-                    >
-                      {t}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </motion.article>
-          ))}
+  const filterOptions: { id: FilterCategory; label: string }[] = [
+    { id: "all", label: t.projects.filters.all },
+    { id: "saas-travel", label: t.projects.filters.saasTravel },
+    { id: "ecommerce", label: t.projects.filters.ecommerce },
+  ];
+
+  const filteredProjects = t.projects.items.filter((project) => {
+    if (activeFilter === "all") return true;
+    return project.category === activeFilter;
+  });
+
+  return (
+    <section
+      id="projects"
+      className="py-20 md:py-28 relative border-b border-border/60"
+    >
+      <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
+        {/* Header & Category Filter Bar */}
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.5 }}
+            className="max-w-2xl"
+          >
+            <div className="inline-flex items-center gap-2 text-primary text-xs font-mono uppercase tracking-wider mb-3">
+              <FolderGit2 className="w-4 h-4" />
+              <span>
+                {t.projects.sectionNumber} — {t.projects.eyebrow}
+              </span>
+            </div>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight">
+              {t.projects.title}{" "}
+              <span className="text-gradient">{t.projects.titleHighlight}</span>
+            </h2>
+            <p className="mt-3 text-base sm:text-lg text-muted-foreground leading-relaxed">
+              {t.projects.subtitle}
+            </p>
+          </motion.div>
+
+          {/* Filter Tabs */}
+          <div
+            role="tablist"
+            aria-label="Filtrar proyectos por categoría"
+            className="inline-flex flex-wrap items-center gap-1.5 p-1.5 rounded-xl bg-surface-elevated border border-border self-start lg:self-auto"
+          >
+            {filterOptions.map((option) => {
+              const isSelected = activeFilter === option.id;
+              return (
+                <button
+                  key={option.id}
+                  type="button"
+                  role="tab"
+                  aria-selected={isSelected}
+                  onClick={() => setActiveFilter(option.id)}
+                  className={`px-3.5 py-2 rounded-lg text-xs font-mono font-semibold transition-all cursor-pointer ${
+                    isSelected
+                      ? "bg-gradient-brand text-primary-foreground shadow-glow"
+                      : "text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  {option.label}
+                </button>
+              );
+            })}
+          </div>
         </div>
+
+        {/* Projects Grid */}
+        {filteredProjects.length === 0 ? (
+          <div className="rounded-2xl glass border border-border p-12 text-center">
+            <p className="text-muted-foreground text-sm font-mono">
+              No hay proyectos en esta categoría.
+            </p>
+          </div>
+        ) : (
+          <motion.div
+            layout
+            className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8"
+          >
+            <AnimatePresence mode="popLayout">
+              {filteredProjects.map((project) => (
+                <motion.article
+                  layout
+                  key={project.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.96 }}
+                  transition={{ duration: 0.35 }}
+                  className="group rounded-2xl glass border border-border hover:border-primary/45 transition-all duration-300 flex flex-col overflow-hidden shadow-card"
+                >
+                  {/* Browser Frame Header */}
+                  <div className="flex items-center justify-between px-4 py-2.5 bg-surface-elevated border-b border-border text-xs font-mono">
+                    <div className="flex items-center gap-2 min-w-0">
+                      <span className="w-2.5 h-2.5 rounded-full bg-rose-500/70" />
+                      <span className="w-2.5 h-2.5 rounded-full bg-amber-400/70" />
+                      <span className="w-2.5 h-2.5 rounded-full bg-emerald-400/70" />
+                      <a
+                        href={project.demo}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="ml-2 text-muted-foreground hover:text-primary transition truncate"
+                      >
+                        https://{project.domainLabel}
+                      </a>
+                    </div>
+                    <span className="text-[11px] text-primary font-semibold shrink-0">
+                      {project.year}
+                    </span>
+                  </div>
+
+                  {/* Visual Preview Container */}
+                  <div className="relative aspect-[16/10] overflow-hidden bg-surface border-b border-border/60">
+                    <Image
+                      src={project.image}
+                      alt={project.title}
+                      width={800}
+                      height={500}
+                      className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent" />
+
+                    {/* Category & Impact Overlay Badges */}
+                    <div className="absolute bottom-3 left-4 right-4 flex flex-wrap items-center justify-between gap-2">
+                      <span className="text-[11px] font-mono font-semibold px-2.5 py-1 rounded-md bg-background/90 backdrop-blur-md border border-border text-foreground">
+                        {project.categoryLabel}
+                      </span>
+                      <span className="inline-flex items-center gap-1.5 text-[11px] font-mono font-semibold px-2.5 py-1 rounded-md bg-emerald-500/20 backdrop-blur-md border border-emerald-500/40 text-emerald-300">
+                        <Sparkles className="w-3 h-3" />
+                        {project.impactMetric}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Case Study Body */}
+                  <div className="p-6 flex flex-col flex-1 justify-between space-y-5">
+                    <div className="space-y-3">
+                      <div className="flex items-start justify-between gap-3">
+                        <div>
+                          <span className="text-xs font-mono text-primary">
+                            {project.role}
+                          </span>
+                          <h3 className="text-xl font-bold text-foreground mt-0.5 group-hover:text-primary transition">
+                            {project.title}
+                          </h3>
+                        </div>
+                      </div>
+
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        {project.description}
+                      </p>
+
+                      {/* Architectural Deliverables */}
+                      <div className="pt-2">
+                        <div className="text-[11px] font-mono uppercase tracking-wider text-foreground/80 mb-2">
+                          {t.projects.keyDeliverablesLabel}
+                        </div>
+                        <ul className="space-y-1.5">
+                          {project.highlights.map((bullet, idx) => (
+                            <li
+                              key={idx}
+                              className="flex items-start gap-2 text-xs sm:text-sm text-muted-foreground leading-relaxed"
+                            >
+                              <CheckCircle2 className="w-3.5 h-3.5 text-primary shrink-0 mt-1" />
+                              <span>{bullet}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+
+                    {/* Footer: Stack Tags & Action Links */}
+                    <div className="pt-4 border-t border-border/60 space-y-4">
+                      <div className="flex flex-wrap gap-1.5">
+                        {project.tags.map((tag) => (
+                          <span
+                            key={tag}
+                            className="text-[11px] font-mono px-2.5 py-1 rounded-md bg-surface-elevated border border-border text-muted-foreground"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+
+                      <div className="flex items-center justify-between gap-3 pt-1">
+                        <a
+                          href={project.demo}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="inline-flex items-center gap-2 text-xs font-mono font-semibold px-4 py-2.5 rounded-xl bg-gradient-brand text-primary-foreground hover:opacity-95 transition shadow-glow"
+                        >
+                          {t.projects.liveSiteLabel} ({project.domainLabel})
+                          <ExternalLink className="w-3.5 h-3.5" />
+                        </a>
+
+                        {project.repo && (
+                          <a
+                            href={project.repo}
+                            target="_blank"
+                            rel="noreferrer"
+                            aria-label={`${t.projects.sourceCodeLabel} — ${project.title}`}
+                            className="inline-flex items-center gap-1.5 text-xs font-mono px-3.5 py-2.5 rounded-xl bg-surface-elevated border border-border hover:border-primary/50 hover:text-primary transition"
+                          >
+                            <Github className="w-3.5 h-3.5" />
+                            <span>{t.projects.sourceCodeLabel}</span>
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </motion.article>
+              ))}
+            </AnimatePresence>
+          </motion.div>
+        )}
       </div>
     </section>
   );

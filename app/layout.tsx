@@ -15,21 +15,32 @@ const jetBrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Leoferson Torres — Full Stack Developer",
+  title: "Leoferson Torres — Full Stack Software Engineer | React, Next.js & Node.js",
   description:
-    "Portfolio de Leoferson Torres, Ingeniero en Computación y Desarrollador Full Stack especializado en React, Next.js y soluciones de IA.",
+    "Ingeniero en Computación y Full Stack Developer especializado en React, Next.js (App Router), TypeScript, Tailwind CSS y Node.js. Portafolio de proyectos en producción para SaaS, TravelTech y E-Commerce (ES/EN).",
   authors: [{ name: "Leoferson Torres" }],
+  keywords: [
+    "Leoferson Torres",
+    "Full Stack Developer",
+    "Software Engineer",
+    "Next.js",
+    "React",
+    "TypeScript",
+    "Node.js",
+    "Remote Developer",
+    "Computer Engineer",
+  ],
   openGraph: {
-    title: "Leoferson Torres — Full Stack Developer",
+    title: "Leoferson Torres — Full Stack Software Engineer",
     description:
-      "Portfolio de desarrollador full stack con experiencia en travel, e-commerce y SaaS.",
+      "Full Stack Software Engineer con experiencia comprobable en plataformas SaaS, TravelTech y E-Commerce B2C/B2B.",
     type: "website",
   },
   twitter: {
-    card: "summary",
-    title: "Leoferson Torres — Full Stack Developer",
+    card: "summary_large_image",
+    title: "Leoferson Torres — Full Stack Software Engineer",
     description:
-      "Portfolio de desarrollador full stack con experiencia en travel, e-commerce y SaaS.",
+      "Full Stack Software Engineer con experiencia en SaaS, TravelTech y E-Commerce B2C/B2B.",
   },
   icons: {
     icon: { url: "/favicon.png", type: "image/png" },
