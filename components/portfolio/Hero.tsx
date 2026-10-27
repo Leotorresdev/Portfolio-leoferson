@@ -30,9 +30,9 @@ const primaryStackPills = [
   "Next.js (App Router)",
   "TypeScript",
   "Tailwind CSS",
-  "Node.js",
-  "Express",
-  "PostgreSQL",
+  "Node.js / Express",
+  "PHP / Laravel",
+  "MySQL / PostgreSQL",
   "Docker / AWS",
 ];
 
